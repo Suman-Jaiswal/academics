@@ -1,9 +1,8 @@
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import { editCourse } from '../api';
-import { MyContext } from '../contexts/MyContext';
 
 export default function EditCourse({ course }) {
 
@@ -13,7 +12,6 @@ export default function EditCourse({ course }) {
     const [ltp, setLTP] = useState(course.ltp);
     const [links, setLinks] = useState(course.links);
     const [text, setText] = useState('');
-    const { dispatch } = useContext(MyContext)
 
     const handleClose = () => setShow(false);
     const handleShow = () => {
