@@ -3,6 +3,7 @@ import slotRoutes from './backend/routes/slot_route.js'
 import courseRoutes from './backend/routes/course_route.js'
 import express from 'express'
 import dotenv from 'dotenv'
+import path from 'path'
 
 //dotenv config
 dotenv.config()
