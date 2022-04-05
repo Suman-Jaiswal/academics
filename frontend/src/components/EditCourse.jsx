@@ -51,7 +51,7 @@ export default function EditCourse({ course }) {
                         <Form.Control onChange={(e) => setLTP(e.target.value)} defaultValue={course.ltp} type="text" placeholder="e.g. 3-1-0" />
                         <br />
                         <Form.Label>Material Links</Form.Label>
-                        <Form.Control defaultValue={course.links.join(',')} onChange={(e) => {
+                        <Form.Control defaultValue={course.links?.join(',')} onChange={(e) => {
                             const str = e.target.value
                             let arr = [];
                             str.split(',').map(s => arr.push(s))
