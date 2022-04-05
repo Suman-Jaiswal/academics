@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = "http://127.0.0.1:5000/api"
+const api = "https://academics-iiti.herokuapp.com/api"
 
 // slot api
 export const fetchSlots = () => axios.get(api + '/slots')
