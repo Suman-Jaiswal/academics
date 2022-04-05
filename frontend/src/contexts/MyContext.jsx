@@ -64,7 +64,7 @@ const initialState = {
             _id: "",
             code: "",
             name: "",
-            links: [],
+            links: [""],
             ltp: ""
         }
     ],
@@ -72,7 +72,7 @@ const initialState = {
         _id: "",
         code: "",
         name: "",
-        links: [],
+        links: [""],
         ltp: ""
     }],
     loading: false,
