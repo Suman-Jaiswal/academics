@@ -89,7 +89,7 @@ const App = () => {
                                         <div className="p text-secondary">L-T-P: {c.ltp}</div>
                                         <div className="p text-secondary">Useful Links</div>
                                         {
-                                            c?.links.map(l => <li className='mb-1' key={l}><a href={l} rel="noreferrer" target="_blank">{l}<FontAwesomeIcon icon={faExternalLink} className='ms-2' /></a></li>)
+                                            c.links?.map(l => <li className='mb-1' key={l}><a href={l} rel="noreferrer" target="_blank">{l}<FontAwesomeIcon icon={faExternalLink} className='ms-2' /></a></li>)
                                         }
 
                                     </li>
