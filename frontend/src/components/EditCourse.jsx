@@ -50,14 +50,14 @@ export default function EditCourse({ course }) {
                         <Form.Label>L-T-P</Form.Label>
                         <Form.Control onChange={(e) => setLTP(e.target.value)} defaultValue={course.ltp} type="text" placeholder="e.g. 3-1-0" />
                         <br />
-                        <Form.Label>Material Links</Form.Label>
+                        {/* <Form.Label>Material Links</Form.Label>
                         <Form.Control defaultValue={course.links?.join(',')} onChange={(e) => {
                             const str = e.target.value
                             let arr = [];
                             str.split(',').map(s => arr.push(s))
                             setLinks(arr)
                         }} type="text" placeholder="e.g. comma seperated links" />
-                        <br />
+                        <br /> */}
                     </Modal.Body>
                     <Modal.Footer>
                         <div className={text === "An error occured!" ? "text-danger" : null} >{text}</div>

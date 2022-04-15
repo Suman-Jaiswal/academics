@@ -1,3 +1,9 @@
 body {
   background-color: rgb(228, 228, 228) !important;
 }
+.links-li:hover {
+    background-color: rgb(228, 228, 228) !important;
+}
+.links-li-alt:hover {
+    background-color: white
+}

@@ -1,8 +1,10 @@
-import { faCaretDown, faCaretUp, faExternalLink } from '@fortawesome/free-solid-svg-icons'
+import { faCaretDown, faCaretUp, faExternalLink, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useContext, useEffect, useState } from 'react'
-import { fetchCourses, fetchSlots } from './api'
+import { Button } from 'react-bootstrap'
+import { deleteLinkById, fetchCourses, fetchLinks, fetchSlots } from './api'
 import AddCourse from './components/AddCourse'
+import AddLinks from './components/AddLinks'
 import Block from './components/Block'
 import DeleteCourse from './components/DeleteCourse'
 import EditCourse from './components/EditCourse'
@@ -13,11 +15,12 @@ const App = () => {
 
     const [show, setShow] = useState([])
     const { state, dispatch } = useContext(MyContext)
-    const { courses, slots } = state
+    const { courses, slots, links } = state
 
     useEffect(() => {
         fetchCourses().then(res => dispatch({ type: "FETCH_COURSES", payload: res.data }))
         fetchSlots().then(res => dispatch({ type: "FETCH_SLOTS", payload: res.data }))
+        fetchLinks().then(res => dispatch({ type: "FETCH_LINKS", payload: res.data }))
     }, [dispatch])
 
     const handleClick = (code) => {
@@ -32,7 +35,7 @@ const App = () => {
 
     }
 
-    return (
+    return (<>
         <div className='d-flex mt-3'>
 
             <div className="" style={{
@@ -62,6 +65,27 @@ const App = () => {
                     </div>
                     )
                 }
+                <div className='mt-5 w-100 bg-light'>
+                    <div className="h5 p-2">Other Links <Button size='sm' variant='light'> <AddLinks parentId="universal" /></Button></div>
+
+                    <ul className='row'>
+                        {
+                            links.filter(l => l.parentId === "universal").length > 0 ? links.filter(l => l.parentId === "universal").map(link =>
+                                <li style={{
+                                    fontSize: 13
+                                }} key={link._id} className='col-6 my-1 d-flex justify-content-between links-li'>
+                                    <a href={link.url} rel="noreferrer" target="_blank">{link.title}<FontAwesomeIcon icon={faExternalLink} className='ms-2' /></a>
+                                    <span className='p-1'>
+                                        <FontAwesomeIcon size='xs' role={'button'} onClick={() => {
+                                            deleteLinkById(link._id)
+                                                .then(res => dispatch({ type: "REMOVE_LINK", payload: link._id }))
+                                        }} className='p-0 me-3 text-danger' icon={faTrash} />
+                                    </span>
+                                </li>
+                            ) : <div className="text-secondary text-center mb-3">No Links!</div>
+                        }
+                    </ul>
+                </div>
             </div>
             <div className='container'>
                 <div className="header d-flex justify-content-between">
@@ -87,9 +111,19 @@ const App = () => {
 
 
                                         <div className="p text-secondary">L-T-P: {c.ltp}</div>
-                                        <div className="p text-secondary">Useful Links</div>
+                                        <div className="p text-secondary">Useful Links <AddLinks parentId={c._id} /></div>
                                         {
-                                            c.links?.map(l => <li className='mb-1' key={l}><a href={l} rel="noreferrer" target="_blank">{l}<FontAwesomeIcon icon={faExternalLink} className='ms-2' /></a></li>)
+                                            links.filter(link => link.parentId === c._id).length > 0 ? links.filter(link => link.parentId === c._id).map(l =>
+                                                <li key={l._id} className='my-1 d-flex justify-content-between links-li '>
+                                                    <a href={l.url} rel="noreferrer" target="_blank">{l.title}<FontAwesomeIcon icon={faExternalLink} className='ms-2' /></a>
+                                                    <span className='p-1'>
+                                                        <FontAwesomeIcon role={'button'} onClick={() => {
+                                                            deleteLinkById(l._id)
+                                                                .then(res => dispatch({ type: "REMOVE_LINK", payload: l._id }))
+                                                        }} className='p-0 me-3 text-danger' icon={faTrash} />
+                                                    </span>
+                                                </li>
+                                            ) : <div className="text-secondary text-center mb-3">No Links!</div>
                                         }
 
                                     </li>
@@ -102,6 +136,8 @@ const App = () => {
             </div>
 
         </div>
+    </>
+
     )
 }
 

@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
-import { addCourse } from '../api';
+import { addCourse, addLinks } from '../api';
 import { MyContext } from '../contexts/MyContext';
 
 export default function AddCourse() {
@@ -9,26 +9,55 @@ export default function AddCourse() {
     const [code, setCourseCode] = useState("");
     const [name, setCourseName] = useState("");
     const [ltp, setLTP] = useState("");
-    const [links, setLinks] = useState([]);
     const [text, setText] = useState('');
     const { dispatch } = useContext(MyContext)
+    const [links, setLinks] = useState([]);
+    const [input, setInput] = useState('')
 
     const handleClose = () => setShow(false);
     const handleShow = () => {
         setShow(true)
     };
 
+    useEffect(() => {
+
+        const raw = input.split('\n')
+        const array = [...raw]
+        const rawLinks = []
+
+        for (let i = 0; i < array.length; i++) {
+            const obj = { title: array[i].split('=')[0], url: array[i].split('=')[1] }
+            rawLinks.push(obj)
+        }
+        setLinks(rawLinks)
+
+    }, [input])
+
     const handleSubmit = (e) => {
         setText('Saving...')
         e.preventDefault()
         const doc = {
-            code, name, links, ltp
+            code, name, ltp
         }
         addCourse(doc)
             .then(res => {
                 setShow(false)
                 setText("")
+                var raw = [...links];
+                for (let i = 0; i < raw.length; i++) {
+                    const element = raw[i];
+                    element.parentId = res.data._id
+                }
+                console.log(raw)
                 dispatch({ type: "ADD_COURSE", payload: res.data })
+                if (input === "") {
+                    return
+                }
+                addLinks(raw)
+                    .then(res => {
+                        dispatch({ type: "ADD_LINKS", payload: res.data })
+                    })
+                    .catch(e => console.log(e))
             })
             .catch(e => setText('An error occured!'))
     }
@@ -52,12 +81,8 @@ export default function AddCourse() {
                         <Form.Control onChange={(e) => setLTP(e.target.value)} type="text" placeholder="e.g. 3-1-0" />
                         <br />
                         <Form.Label>Material Links</Form.Label>
-                        <Form.Control onChange={(e) => {
-                            const str = e.target.value
-                            let arr = [];
-                            str.split(',').map(s => arr.push(s))
-                            setLinks(arr)
-                        }} type="text" placeholder="e.g. comma seperated links" />
+                        <Form.Control className='mb-4' as='textarea' rows={8} onChange={(e) => setInput(e.target.value)}
+                            placeholder={'Add links in each line \n ********example*******\n <Title>=<URL>\n <Title>=<URL>\n <Title>=<URL>\n  ...\n '} />
                         <br />
                     </Modal.Body>
                     <Modal.Footer>

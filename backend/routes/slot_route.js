@@ -10,7 +10,7 @@ router.route('/').post(slotController.addSlot)
 // express router method to create route for getting all users
 router.route('/').get(slotController.getSlots)
 
-router.route('/').delete(slotController.removeSlotsByCourseId)
+router.route('/delete').post(slotController.removeSlotsByCourseId)
 
 // express router method to create route for getting users by id
 router.route('/:id').get(slotController.getSlotById)

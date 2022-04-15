@@ -50,9 +50,42 @@ const myReducer = (state, action) => {
                 loading: false,
                 error: false,
             }
+        case 'DELETE_SLOTS_BY_COURSEID':
+            const arr3 = state.slots.filter(x => x.courseId !== action.payload)
+            return {
+                ...state,
+                slots: arr3,
+                loading: false,
+                error: false,
+            }
 
         default:
             return state
+
+        // links
+        case 'FETCH_LINKS':
+            return {
+                ...state,
+                links: [...state.links, ...action.payload],
+                loading: false,
+                error: false,
+            }
+
+        case 'ADD_LINKS':
+            return {
+                ...state,
+                links: [...state.links, ...action.payload],
+                loading: false,
+                error: false,
+            }
+
+        case 'REMOVE_LINK':
+            return {
+                ...state,
+                links: state.links.filter(l => l._id !== action.payload),
+                loading: false,
+                error: false,
+            }
     }
 }
 
@@ -75,6 +108,13 @@ const initialState = {
         links: [""],
         ltp: ""
     }],
+    links: [{
+        parentId: "",
+        title: "",
+        url: "",
+        description: ""
+    }
+    ],
     loading: false,
     error: false,
 }
@@ -84,7 +124,9 @@ function MyContextProvider(props) {
     const [state, dispatch] = useReducer(myReducer, initialState);
 
     useEffect(() => {
-        console.log('myState', state)
+        console.log('courses', state.courses)
+        console.log('slots', state.slots)
+        console.log('links', state.links)
     }, [state])
 
     return (

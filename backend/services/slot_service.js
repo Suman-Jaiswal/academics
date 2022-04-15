@@ -32,7 +32,7 @@ class SlotService {
     }
 
     async deleteSlotsByCourseId(courseId) {
-        const slot = await this.slot.deleteMany(courseId);
+        const slot = await this.slot.deleteMany({ courseId });
         return slot;
     }
 

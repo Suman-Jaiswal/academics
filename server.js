@@ -1,6 +1,7 @@
 import connectDB from './backend/config/db.js'
 import slotRoutes from './backend/routes/slot_route.js'
 import courseRoutes from './backend/routes/course_route.js'
+import linkRoutes from './backend/routes/link_route.js'
 import express from 'express'
 import dotenv from 'dotenv'
 import path from 'path'
@@ -16,7 +17,9 @@ const app = express()
 
 app.use(express.json())
 
-// app.use(cors())
+app.use(cors({
+    origin: "*"
+}))
 
 const __dirname = path.resolve();
 
@@ -32,6 +35,7 @@ if (process.env.NODE_ENV === 'production') {
 //API
 app.use('/api/slots', slotRoutes)
 app.use('/api/courses', courseRoutes)
+app.use('/api/links', linkRoutes)
 
 const PORT = process.env.PORT || 5000
 

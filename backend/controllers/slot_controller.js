@@ -35,7 +35,11 @@ class SlotController {
     })
 
     removeSlotsByCourseId = asyncHandler(async (req, res) => {
-        const slot = await this.slotService.deleteSlotsByCourseId(req.body.courseId)
+        const { courseId } = req.body
+        if (courseId === "") {
+            return
+        }
+        const slot = await this.slotService.deleteSlotsByCourseId(courseId)
         res.json(slot)
     })
 
