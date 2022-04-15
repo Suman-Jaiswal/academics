@@ -87,13 +87,17 @@ const App = () => {
                     </ul>
                 </div>
             </div>
-            <div className='container'>
+            <div className='' style={{
+                width: 530
+            }}>
                 <div className="header d-flex justify-content-between">
                     <div className="h5 text-center">Courses </div>
                     <AddCourse />
                 </div>
 
-                <ul>
+                <ul style={{
+                    width: 520
+                }}>
                     {
                         courses.length > 1 ? courses.map((c, i) => c.code !== "" && <div key={i}><li role={'button'} className='text-dark bg-light mt-2 py-1 px-3' onClick={() => handleClick(c.code)}>
                             <div className="d-inline">{c.code} ({c.name})</div>
