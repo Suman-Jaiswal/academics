@@ -26,7 +26,7 @@ export default function AddCourse() {
         const rawLinks = []
 
         for (let i = 0; i < array.length; i++) {
-            const obj = { title: array[i].split('=')[0], url: array[i].split('=')[1] }
+            const obj = { title: array[i].split(',')[0], url: array[i].split(',')[1] }
             rawLinks.push(obj)
         }
         setLinks(rawLinks)
@@ -82,7 +82,7 @@ export default function AddCourse() {
                         <br />
                         <Form.Label>Material Links</Form.Label>
                         <Form.Control className='mb-4' as='textarea' rows={8} onChange={(e) => setInput(e.target.value)}
-                            placeholder={'Add links in each line \n ********example*******\n <Title>=<URL>\n <Title>=<URL>\n <Title>=<URL>\n  ...\n '} />
+                            placeholder={'Add links in each line \n ********example*******\n <Title>,<URL>\n <Title>,<URL>\n <Title>,<URL>\n  ...\n '} />
                         <br />
                     </Modal.Body>
                     <Modal.Footer>
