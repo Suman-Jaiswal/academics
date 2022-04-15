@@ -142,7 +142,7 @@ const App = () => {
         </div>
         <br />
         <div className="container text-center">
-            Developed by Suman Jaiswal &copy; 2022
+            Suman Jaiswal &copy; 2022
 
         </div>
         <br />
