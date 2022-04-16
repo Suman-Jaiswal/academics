@@ -1,12 +1,13 @@
-import { faCaretDown, faCaretUp, faExternalLink, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faCaretDown, faCaretUp, faExternalLink } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useContext, useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
-import { deleteLinkById, fetchCourses, fetchLinks, fetchSlots } from './api'
+import { fetchCourses, fetchLinks, fetchSlots } from './api'
 import AddCourse from './components/AddCourse'
 import AddLinks from './components/AddLinks'
 import Block from './components/Block'
 import DeleteCourse from './components/DeleteCourse'
+import DeleteLink from './components/DeleteLink'
 import EditCourse from './components/EditCourse'
 import { days, timings } from './components/formats'
 import { MyContext } from './contexts/MyContext'
@@ -76,10 +77,7 @@ const App = () => {
                                 }} key={link._id} className='col-6 my-1 d-flex justify-content-between links-li'>
                                     <a href={link.url} rel="noreferrer" target="_blank">{link.title}<FontAwesomeIcon icon={faExternalLink} className='ms-2' /></a>
                                     <span className='p-1'>
-                                        <FontAwesomeIcon size='xs' role={'button'} onClick={() => {
-                                            deleteLinkById(link._id)
-                                                .then(res => dispatch({ type: "REMOVE_LINK", payload: link._id }))
-                                        }} className='p-0 me-3 text-danger' icon={faTrash} />
+                                        <DeleteLink id={link._id} />
                                     </span>
                                 </li>
                             ) : <div className="text-secondary text-center mb-3">No Links!</div>
@@ -121,10 +119,7 @@ const App = () => {
                                                 <li key={l._id} className='my-1 d-flex justify-content-between links-li '>
                                                     <a href={l.url} rel="noreferrer" target="_blank">{l.title}<FontAwesomeIcon icon={faExternalLink} className='ms-2' /></a>
                                                     <span className='p-1'>
-                                                        <FontAwesomeIcon role={'button'} onClick={() => {
-                                                            deleteLinkById(l._id)
-                                                                .then(res => dispatch({ type: "REMOVE_LINK", payload: l._id }))
-                                                        }} className='p-0 me-3 text-danger' icon={faTrash} />
+                                                        <DeleteLink id={l._id} />
                                                     </span>
                                                 </li>
                                             ) : <div className="text-secondary text-center mb-3">No Links!</div>
