@@ -48,7 +48,9 @@ export default function AddLinks({ parentId }) {
 
     return (
         <>
-            <FontAwesomeIcon onClick={handleShow} role={'button'} size='xs' className='text-dark fw-bold ms-1' icon={faPlus} />
+            <span onClick={handleShow} className='bg-primary px-1 rounded ms-1'>
+                <FontAwesomeIcon role={'button'} size='xs' className='text-light fw-bold ' icon={faPlus} />
+            </span>
             <Modal show={show} onHide={handleClose}>
                 <Form>
                     <Modal.Header closeButton>

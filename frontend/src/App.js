@@ -1,7 +1,6 @@
 import { faCaretDown, faCaretUp, faExternalLink } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useContext, useEffect, useState } from 'react'
-import { Button } from 'react-bootstrap'
 import { fetchCourses, fetchLinks, fetchSlots } from './api'
 import AddCourse from './components/AddCourse'
 import AddLinks from './components/AddLinks'
@@ -72,7 +71,7 @@ const App = () => {
                         width: 966
                     }}
                 >
-                    <div className="h5 p-2 ps-0">Other Links <Button size='sm' variant='light'> <AddLinks parentId="universal" /></Button></div>
+                    <div className="p-1 mb-3 ps-0"> <span className='h5'>Other Links</span> <AddLinks parentId="universal" /></div>
 
                     <ul className='row p-0'>
                         {
@@ -102,10 +101,11 @@ const App = () => {
                     width: "auto"
                 }}>
                     {
-                        courses.length > 1 ? courses.map((c, i) => c.code !== "" && <div key={i}><li role={'button'} className='text-dark bg-light mt-2 py-1 px-3' onClick={() => handleClick(c.code)}>
-                            <div className="d-inline">{c.code} ({c.name})</div>
-                            <FontAwesomeIcon className='float-end' role={'button'} icon={show.includes(c.code) ? faCaretUp : faCaretDown} />
-                        </li>
+                        courses.length > 1 ? courses.map((c, i) => c.code !== "" && <div key={i}>
+                            <li role={'button'} className='text-dark bg-light mt-2 py-2 px-3 rounded' onClick={() => handleClick(c.code)}>
+                                <div className="d-inline">{c.code} ({c.name})</div>
+                                <FontAwesomeIcon className='float-end' role={'button'} icon={show.includes(c.code) ? faCaretUp : faCaretDown} />
+                            </li>
 
                             <div className={`${show.includes(c.code) ? "d-block" : "d-none"} bg-light border-top`}>
                                 <ul className='py-2'>

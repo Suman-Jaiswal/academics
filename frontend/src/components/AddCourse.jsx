@@ -64,7 +64,7 @@ export default function AddCourse() {
 
     return (
         <>
-            <Button size='sm' variant='outline-secondary' onClick={handleShow} >Add Course</Button>
+            <Button size='sm' variant='outline-primary' onClick={handleShow} >Add Course</Button>
             <Modal show={show} onHide={handleClose}>
                 <Form>
                     <Modal.Header closeButton>

@@ -25,7 +25,7 @@ export default function AddSlot({ day, time, courses }) {
         }
 
         const doc = {
-            courseId, day, startTime: time, slotType
+            courseId, day, startTime: parseInt(time.split(' ')[0]), slotType
         }
         addSlot(doc)
             .then(res => {
@@ -40,7 +40,7 @@ export default function AddSlot({ day, time, courses }) {
         <div className='bg-light d-flex justify-content-center align-items-center' style={{
             width: 80,
             height: 60
-        }}><FontAwesomeIcon onClick={handleShow} role={'button'} size='2x' className='text-secondary' icon={faPlus} />
+        }}><FontAwesomeIcon onClick={handleShow} role={'button'} size='lg' className='text-secondary' icon={faPlus} />
 
         </div>
         <Modal show={show} onHide={handleClose}>
