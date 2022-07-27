@@ -38,8 +38,8 @@ export default function AddSlot({ day, time, courses }) {
 
     return (<>
         <div className='bg-light d-flex justify-content-center align-items-center' style={{
-            width: 100,
-            height: 70
+            width: 80,
+            height: 60
         }}><FontAwesomeIcon onClick={handleShow} role={'button'} size='2x' className='text-secondary' icon={faPlus} />
 
         </div>

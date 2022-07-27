@@ -35,6 +35,7 @@ const App = () => {
         }
 
     }
+    console.log(slots)
 
     return (<>
         <div className='d-flex mt-3'>
@@ -45,18 +46,18 @@ const App = () => {
                 <div className='d-flex'>
                     <div className='p-1'><div className='text-center h5' style={{ width: 100 }}>Schedule</div></div>
                     {
-                        timings.map((slot, i) => <div key={i} className='p-1'><div className='text-center' style={{ width: 100 }}>{slot}</div></div>)
+                        timings.map((slot, i) => <div key={i} className='p-1'><div className='text-center' style={{ width: 80 }}>{slot}</div></div>)
                     }
                 </div>
 
                 {
                     days.map((day, i) => <div key={i} >
                         <div className='d-flex'>
-                            <div className='p-1'><div className='text-center' style={{ width: 100 }}>{day}</div></div>
+                            <div className='p-1 d-flex align-items-center'><div className='text-center ' style={{ width: 100 }}>{day}</div></div>
                             {
                                 timings.map((time, i) => <div key={i} className='p-1'><Block
                                     courses={courses}
-                                    slot={slots.filter(s => s.startTime === time && s.day === day)}
+                                    slot={slots.filter(s => s.startTime.toString() === time.split(' ')[0] && s.day === day)}
                                     day={day}
                                     time={time}
                                 />
@@ -66,10 +67,14 @@ const App = () => {
                     </div>
                     )
                 }
-                <div className='mt-5 w-100 bg-light'>
-                    <div className="h5 p-2">Other Links <Button size='sm' variant='light'> <AddLinks parentId="universal" /></Button></div>
+                <div className='mt-5 bg-light px-3 py-3'
+                    style={{
+                        width: 966
+                    }}
+                >
+                    <div className="h5 p-2 ps-0">Other Links <Button size='sm' variant='light'> <AddLinks parentId="universal" /></Button></div>
 
-                    <ul className='row'>
+                    <ul className='row p-0'>
                         {
                             links.filter(l => l.parentId === "universal").length > 0 ? links.filter(l => l.parentId === "universal").map(link =>
                                 <li style={{
@@ -85,16 +90,16 @@ const App = () => {
                     </ul>
                 </div>
             </div>
-            <div className='' style={{
+            <div className='mx-4' style={{
                 width: 530
             }}>
                 <div className="header d-flex justify-content-between">
-                    <div className="h5 text-center">Courses </div>
+                    <div className="h5 text-center ms-3">Courses </div>
                     <AddCourse />
                 </div>
 
-                <ul style={{
-                    width: 520
+                <ol type='1' style={{
+                    width: "auto"
                 }}>
                     {
                         courses.length > 1 ? courses.map((c, i) => c.code !== "" && <div key={i}><li role={'button'} className='text-dark bg-light mt-2 py-1 px-3' onClick={() => handleClick(c.code)}>
@@ -131,7 +136,7 @@ const App = () => {
                         </div>
                         ) : <div className='text-secondary text-center'>No Courses!</div>
                     }
-                </ul>
+                </ol>
             </div>
 
         </div>

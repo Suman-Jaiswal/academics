@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import AddSlot from './AddSlot'
 import DeleteSlot from './DeleteSlot'
+import { colors } from './styles'
 
 export default function Block({ slot, courses, time, day }) {
 
@@ -18,24 +19,27 @@ export default function Block({ slot, courses, time, day }) {
 
     return (<>
         {
-            slot.length > 0 ? <div className='block px-2 bg-light'
+            slot.length > 0 ? <div className='block px-1 bg-light rounded'
                 onMouseOver={() => setShow(true)}
                 onMouseOut={() => setShow(false)}
                 style={{
-                    width: 100,
-                    height: 70
+                    width: 80,
+                    height: 60,
+                    border: `2px solid #${slot[0].slotType === 'L' ? colors.lecColor :
+                        slot[0].slotType === 'T' ? colors.tutColor :
+                            colors.pracColor}`
                 }}
             >
                 <div className='top text-end'>
                     <div role={'button'} id="edit" className={show ? "opacity-100 p-1" : "opacity-0 p-1"} style={{
                         transition: 'all 0.3s',
-                        fontSize: 13
+                        fontSize: 11
                     }}>
                         <DeleteSlot id={slot[0]._id ? slot[0]._id : null} />
                     </div>
                 </div>
                 <div className="mid">
-                    <div className="h6 text-center">{slot[0].slotType}: {course?.code}</div>
+                    <div className="h6 text-center" style={{ fontSize: 13 }}>{slot[0].slotType}: {course?.code}</div>
                 </div>
             </div> :
                 <AddSlot courses={courses} day={day} time={time} />

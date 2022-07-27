@@ -106,7 +106,8 @@ const initialState = {
         code: "",
         name: "",
         links: [""],
-        ltp: ""
+        ltp: "",
+        startTime: ""
     }],
     links: [{
         parentId: "",
