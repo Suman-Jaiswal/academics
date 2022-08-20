@@ -9,13 +9,15 @@ const courseSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    links: {
-        type: Array,
-        default: []
-    },
     ltp: {
         type: String
-    }
+    },
+    prof: {
+        type: String
+    },
+    credit: {
+        type: Number
+    },
 }, {
     timestamps: true
 })

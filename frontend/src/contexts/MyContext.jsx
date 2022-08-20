@@ -17,6 +17,17 @@ const myReducer = (state, action) => {
                 loading: false,
                 error: false,
             }
+        case 'EDIT_COURSE':
+            const ind = state.courses.findIndex(o => o._id === action.payload.id)
+
+            state.courses[ind] = { ...state.courses[ind], ...action.payload.data }
+
+            return {
+                ...state,
+                // courses: newArr,
+                // loading: false,
+                // error: false,
+            }
         case 'DELETE_COURSE':
             const arr = state.courses.filter(x => x._id !== action.payload)
             return {

@@ -9,6 +9,7 @@ import DeleteCourse from './components/DeleteCourse'
 import DeleteLink from './components/DeleteLink'
 import EditCourse from './components/EditCourse'
 import { days, timings } from './components/formats'
+import Navbar from './components/Navbar'
 import { MyContext } from './contexts/MyContext'
 
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
     console.log(slots)
 
     return (<>
+        <Navbar />
         <div className='d-flex mt-3'>
 
             <div className="" style={{
@@ -103,12 +105,12 @@ const App = () => {
                     {
                         courses.length > 1 ? courses.map((c, i) => c.code !== "" && <div key={i}>
                             <li role={'button'} className='text-dark bg-light mt-2 py-2 px-3 rounded' onClick={() => handleClick(c.code)}>
-                                <div className="d-inline">{c.code} ({c.name})</div>
+                                <div className="d-inline">{c.code} ( <i style={{ fontSize: 14 }} >{c.name}</i> )</div>
                                 <FontAwesomeIcon className='float-end' role={'button'} icon={show.includes(c.code) ? faCaretUp : faCaretDown} />
                             </li>
 
                             <div className={`${show.includes(c.code) ? "d-block" : "d-none"} bg-light border-top`}>
-                                <ul className='py-2'>
+                                <ul className='py-2 pe-3'>
                                     <li style={{
                                         fontSize: 13
                                     }}>
@@ -116,8 +118,22 @@ const App = () => {
                                         <span><EditCourse course={c} /></span>
                                         <span><DeleteCourse id={c._id} /></span>
 
+                                        {
+                                            c.prof &&
+                                            <div className="p text-secondary"> <i>{c.prof}</i> </div>
+                                        }
 
-                                        <div className="p text-secondary">L-T-P: {c.ltp}</div>
+                                        <div className="d-flex justify-content-between">
+                                            {
+                                                c.ltp &&
+                                                <div className="p text-secondary">L-T-P: {c.ltp}</div>
+                                            }
+                                            {
+                                                c.credit &&
+                                                <div className="p text-secondary">Credit: {c.credit}</div>
+                                            }
+                                        </div>
+
                                         <div className="p text-secondary">Useful Links <AddLinks parentId={c._id} /></div>
                                         {
                                             links.filter(link => link.parentId === c._id).length > 0 ? links.filter(link => link.parentId === c._id).map(l =>

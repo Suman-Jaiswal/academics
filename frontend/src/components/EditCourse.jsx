@@ -1,8 +1,9 @@
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import { editCourse } from '../api';
+import { MyContext } from '../contexts/MyContext';
 
 export default function EditCourse({ course }) {
 
@@ -10,8 +11,10 @@ export default function EditCourse({ course }) {
     const [code, setCourseCode] = useState(course.code);
     const [name, setCourseName] = useState(course.name);
     const [ltp, setLTP] = useState(course.ltp);
-    const [links, setLinks] = useState(course.links);
+    const [prof, setProf] = useState(course.prof);
+    const [credit, setCredit] = useState(course.credit);
     const [text, setText] = useState('');
+    const { dispatch } = useContext(MyContext)
 
     const handleClose = () => setShow(false);
     const handleShow = () => {
@@ -22,11 +25,12 @@ export default function EditCourse({ course }) {
         setText('Saving...')
         e.preventDefault()
         const doc = {
-            code, name, links, ltp
+            code, name, ltp, prof, credit
         }
         editCourse(course._id, doc)
             .then(res => {
                 setShow(false)
+                dispatch({ type: "EDIT_COURSE", payload: { id: course._id, data: { ...res.data } } })
                 setText("")
             })
             .catch(e => setText('An error occured!'))
@@ -49,6 +53,12 @@ export default function EditCourse({ course }) {
                         <br />
                         <Form.Label>L-T-P</Form.Label>
                         <Form.Control onChange={(e) => setLTP(e.target.value)} defaultValue={course.ltp} type="text" placeholder="e.g. 3-1-0" />
+                        <br />
+                        <Form.Label>Professor</Form.Label>
+                        <Form.Control onChange={(e) => setProf(e.target.value)} defaultValue={course.prof} type="text" placeholder="Enter professor name..." />
+                        <br />
+                        <Form.Label>Credit</Form.Label>
+                        <Form.Control onChange={(e) => setCredit(e.target.value)} defaultValue={course.credit} type="number" placeholder="Enter credit" />
                         <br />
                         {/* <Form.Label>Material Links</Form.Label>
                         <Form.Control defaultValue={course.links?.join(',')} onChange={(e) => {

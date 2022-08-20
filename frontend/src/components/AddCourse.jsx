@@ -9,6 +9,8 @@ export default function AddCourse() {
     const [code, setCourseCode] = useState("");
     const [name, setCourseName] = useState("");
     const [ltp, setLTP] = useState("");
+    const [prof, setProf] = useState("");
+    const [credit, setCredit] = useState(null);
     const [text, setText] = useState('');
     const { dispatch } = useContext(MyContext)
     const [links, setLinks] = useState([]);
@@ -37,7 +39,7 @@ export default function AddCourse() {
         setText('Saving...')
         e.preventDefault()
         const doc = {
-            code, name, ltp
+            code, name, ltp, prof, credit
         }
         addCourse(doc)
             .then(res => {
@@ -79,6 +81,12 @@ export default function AddCourse() {
                         <br />
                         <Form.Label>L-T-P</Form.Label>
                         <Form.Control onChange={(e) => setLTP(e.target.value)} type="text" placeholder="e.g. 3-1-0" />
+                        <br />
+                        <Form.Label>Professor</Form.Label>
+                        <Form.Control onChange={(e) => setProf(e.target.value)} type="text" placeholder="Enter professor name..." />
+                        <br />
+                        <Form.Label>Credit</Form.Label>
+                        <Form.Control onChange={(e) => setCredit(e.target.value)} type="number" placeholder="Enter credit" />
                         <br />
                         <Form.Label>Material Links</Form.Label>
                         <Form.Control className='mb-4' as='textarea' rows={8} onChange={(e) => setInput(e.target.value)}
