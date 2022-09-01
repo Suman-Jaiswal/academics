@@ -12,6 +12,7 @@ export default function Navbar({ branches }) {
 
     useEffect(() => {
         const id = localStorage.getItem('branchId');
+        if (!id) return
         if (id.length > 0) {
             setBranchId(id);
             const b = branches.filter(b => b.branchId === branchId)[0]
