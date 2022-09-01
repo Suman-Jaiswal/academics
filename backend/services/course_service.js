@@ -11,14 +11,9 @@ class CourseService {
         return course;
     }
 
-    async findAllCourses() {
-        const courses = await this.course.find();
+    async findAllCourses(branchId) {
+        const courses = await this.course.find({ branchId });
         return courses;
-    }
-
-    async findCourseByParameters(day, time) {
-        const course = await this.course.find({ day, startTime: time });
-        return course;
     }
 
     async findCourseById(id) {

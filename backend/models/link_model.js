@@ -1,6 +1,10 @@
 import mongoose from 'mongoose'
 
 const linkSchema = mongoose.Schema({
+    branchId: {
+        type: String,
+        required: true
+    },
     parentId: {
         type: String,
         required: true

@@ -11,7 +11,8 @@ export default function AddLinks({ parentId }) {
     const [show, setShow] = useState(false);
     const [text, setText] = useState('');
     const [input, setInput] = useState('')
-    const { dispatch } = useContext(MyContext)
+    const { state, dispatch } = useContext(MyContext)
+    const { branchId } = state.branch
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -23,12 +24,12 @@ export default function AddLinks({ parentId }) {
         const rawLinks = []
 
         for (let i = 0; i < array.length; i++) {
-            const obj = { parentId, title: array[i].split(',')[0], url: array[i].split(',')[1] }
+            const obj = { parentId, branchId, title: array[i].split(',')[0], url: array[i].split(',')[1] }
             rawLinks.push(obj)
         }
         setLinks(rawLinks)
 
-    }, [input, parentId])
+    }, [input, parentId, branchId])
 
     const handleSubmit = (e) => {
         setText('Saving...')

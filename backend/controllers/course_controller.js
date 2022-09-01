@@ -14,7 +14,8 @@ class CourseController {
     })
 
     getCourses = asyncHandler(async (req, res) => {
-        const courses = await this.courseService.findAllCourses();
+        const { branchId } = req.query
+        const courses = await this.courseService.findAllCourses(branchId);
         res.json(courses)
     })
 
@@ -27,12 +28,6 @@ class CourseController {
         const { id } = req.params
         const data = req.body
         const course = await this.courseService.updateCourseById(id, data);
-        res.json(course)
-    })
-
-    getCourseByParameters = asyncHandler(async (req, res) => {
-        const { day, time } = req.body
-        const course = await this.courseService.findCourseByParameters(day, time)
         res.json(course)
     })
 

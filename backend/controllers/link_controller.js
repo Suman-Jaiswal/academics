@@ -14,7 +14,8 @@ class LinkController {
     })
 
     getLinks = asyncHandler(async (req, res) => {
-        const Links = await this.linkService.findAllLinks();
+        const { branchId } = req.query
+        const Links = await this.linkService.findAllLinks(branchId);
         res.json(Links)
     })
 

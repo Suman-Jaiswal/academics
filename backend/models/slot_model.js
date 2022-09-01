@@ -1,6 +1,10 @@
 import mongoose from 'mongoose'
 
 const slotSchema = mongoose.Schema({
+    branchId: {
+        type: String,
+        required: true
+    },
     courseId: {
         type: String,
         required: true

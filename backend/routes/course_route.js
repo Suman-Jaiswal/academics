@@ -10,9 +10,6 @@ router.route('/').post(courseController.addCourse)
 // express router method to create route for getting all users
 router.route('/').get(courseController.getCourses)
 
-// express router method to create route for getting users by id
-router.route('/course').get(courseController.getCourseByParameters)
-
 router.route('/:id').get(courseController.getCourseById)
 
 router.route('/:id').post(courseController.editCourseById)

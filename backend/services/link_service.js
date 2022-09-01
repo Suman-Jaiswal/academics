@@ -11,8 +11,8 @@ class LinkService {
         return links;
     }
 
-    async findAllLinks() {
-        const links = await this.link.find();
+    async findAllLinks(branchId) {
+        const links = await this.link.find({ branchId });
         return links;
     }
 

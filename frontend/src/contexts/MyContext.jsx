@@ -1,12 +1,20 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useReducer } from "react";
 
 const myReducer = (state, action) => {
     switch (action.type) {
+        //branch
+        case 'SET_BRANCH':
+            return {
+                ...state,
+                branch: action.payload
+            }
+
+
         //courses
         case 'FETCH_COURSES':
             return {
                 ...state,
-                courses: [...state.courses, ...action.payload],
+                courses: [...action.payload],
                 loading: false,
                 error: false,
             }
@@ -42,7 +50,7 @@ const myReducer = (state, action) => {
         case 'FETCH_SLOTS':
             return {
                 ...state,
-                slots: [...state.slots, ...action.payload],
+                slots: [...action.payload],
                 loading: false,
                 error: false,
             }
@@ -77,7 +85,7 @@ const myReducer = (state, action) => {
         case 'FETCH_LINKS':
             return {
                 ...state,
-                links: [...state.links, ...action.payload],
+                links: [...action.payload],
                 loading: false,
                 error: false,
             }
@@ -103,6 +111,11 @@ const myReducer = (state, action) => {
 export const MyContext = createContext()
 
 const initialState = {
+    branch: {
+        branchId: "",
+        name: "",
+        program: ""
+    },
     courses: [
         {
             _id: "",
@@ -135,11 +148,11 @@ function MyContextProvider(props) {
 
     const [state, dispatch] = useReducer(myReducer, initialState);
 
-    useEffect(() => {
-        console.log('courses', state.courses)
-        console.log('slots', state.slots)
-        console.log('links', state.links)
-    }, [state])
+    // useEffect(() => {
+    //     console.log('courses', state.courses)
+    //     console.log('slots', state.slots)
+    //     console.log('links', state.links)
+    // }, [state])
 
     return (
         <MyContext.Provider value={{ state, dispatch }}>

@@ -1,15 +1,15 @@
 .env{
     transform-origin: 50% 0;
-    width: 450px;
-    transition: all ease-in-out .2s;
 }
 .env-open{
+    transition: all ease-in-out .2s;
     transform: scale3d(1, 1, 1) !important;
     position: static;
 }
 .env-close{
-    transform: scale3d(0, 0, 0)!important;
+    transform: scale3d(0, 0, 0) !important;
     position: absolute;
+    opacity: 0;
 }
 
 

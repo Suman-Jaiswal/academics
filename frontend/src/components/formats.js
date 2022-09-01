@@ -18,3 +18,11 @@ export const days = [
     "Thursday",
     "Friday",
 ]
+
+export const renderDays = [
+    "MON",
+    "TUE",
+    "WED",
+    "THU",
+    "FRI",
+]

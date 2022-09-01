@@ -13,7 +13,8 @@ export default function AddCourse() {
     const [details, setDetails] = useState("");
     const [credit, setCredit] = useState(null);
     const [text, setText] = useState('');
-    const { dispatch } = useContext(MyContext)
+    const { state, dispatch } = useContext(MyContext)
+    const { branchId } = state.branch
     const [links, setLinks] = useState([]);
     const [input, setInput] = useState('')
 
@@ -40,7 +41,7 @@ export default function AddCourse() {
         setText('Saving...')
         e.preventDefault()
         const doc = {
-            code, name, ltp, prof, credit, details
+            code, name, ltp, prof, credit, details, branchId
         }
         addCourse(doc)
             .then(res => {
@@ -67,7 +68,7 @@ export default function AddCourse() {
 
     return (
         <>
-            <Button size='sm' variant='outline-primary' onClick={handleShow} >Add Course</Button>
+            <Button size='sm' style={{ fontSize: 12 }} variant='outline-primary' onClick={handleShow} >Add Course</Button>
             <Modal show={show} onHide={handleClose}>
                 <Form>
                     <Modal.Header closeButton>

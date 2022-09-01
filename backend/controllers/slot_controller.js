@@ -14,7 +14,8 @@ class SlotController {
     })
 
     getSlots = asyncHandler(async (req, res) => {
-        const slots = await this.slotService.findAllSlots();
+        const { branchId } = req.query
+        const slots = await this.slotService.findAllSlots(branchId);
         res.json(slots)
     })
 

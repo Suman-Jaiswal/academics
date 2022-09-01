@@ -7,7 +7,8 @@ import { MyContext } from '../contexts/MyContext';
 
 export default function AddSlot({ day, time, courses }) {
 
-    const { dispatch } = useContext(MyContext)
+    const { state, dispatch } = useContext(MyContext)
+    const { branchId } = state.branch
     const [show, setShow] = useState(false);
     const [text, setText] = useState('');
     const [courseId, setCourseId] = useState('');
@@ -25,7 +26,7 @@ export default function AddSlot({ day, time, courses }) {
         }
 
         const doc = {
-            courseId, day, startTime: parseInt(time.split(' ')[0]), slotType
+            courseId, branchId, day, startTime: parseInt(time.split(' ')[0]), slotType
         }
         addSlot(doc)
             .then(res => {

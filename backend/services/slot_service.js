@@ -11,8 +11,8 @@ class SlotService {
         return slot;
     }
 
-    async findAllSlots() {
-        const slots = await this.slot.find();
+    async findAllSlots(branchId) {
+        const slots = await this.slot.find({ branchId });
         return slots;
     }
 

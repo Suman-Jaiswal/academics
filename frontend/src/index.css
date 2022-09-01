@@ -7,3 +7,14 @@ body {
 .links-li-alt:hover {
     background-color: white
 }
+::-webkit-scrollbar {
+    width: 1px;
+    height: 1px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+::-webkit-scrollbar-thumb {
+    background: #2303033d;
+}
