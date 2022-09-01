@@ -11,6 +11,7 @@ export default function EditCourse({ course }) {
     const [code, setCourseCode] = useState(course.code);
     const [name, setCourseName] = useState(course.name);
     const [ltp, setLTP] = useState(course.ltp);
+    const [details, setDetails] = useState(course.details);
     const [prof, setProf] = useState(course.prof);
     const [credit, setCredit] = useState(course.credit);
     const [text, setText] = useState('');
@@ -25,7 +26,7 @@ export default function EditCourse({ course }) {
         setText('Saving...')
         e.preventDefault()
         const doc = {
-            code, name, ltp, prof, credit
+            code, name, ltp, prof, credit, details
         }
         editCourse(course._id, doc)
             .then(res => {
@@ -60,14 +61,10 @@ export default function EditCourse({ course }) {
                         <Form.Label>Credit</Form.Label>
                         <Form.Control onChange={(e) => setCredit(e.target.value)} defaultValue={course.credit} type="number" placeholder="Enter credit" />
                         <br />
-                        {/* <Form.Label>Material Links</Form.Label>
-                        <Form.Control defaultValue={course.links?.join(',')} onChange={(e) => {
-                            const str = e.target.value
-                            let arr = [];
-                            str.split(',').map(s => arr.push(s))
-                            setLinks(arr)
-                        }} type="text" placeholder="e.g. comma seperated links" />
-                        <br /> */}
+                        <Form.Label>Details</Form.Label>
+                        <Form.Control onChange={(e) => setDetails(e.target.value)} defaultValue={course.details} type="text" placeholder="Enter Details of Marking scheme etc." />
+                        <br />
+
                     </Modal.Body>
                     <Modal.Footer>
                         <div className={text === "An error occured!" ? "text-danger" : null} >{text}</div>

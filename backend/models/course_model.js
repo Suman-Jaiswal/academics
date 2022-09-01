@@ -12,11 +12,14 @@ const courseSchema = mongoose.Schema({
     ltp: {
         type: String
     },
+    credit: {
+        type: Number
+    },
     prof: {
         type: String
     },
-    credit: {
-        type: Number
+    details: {
+        type: String
     },
 }, {
     timestamps: true

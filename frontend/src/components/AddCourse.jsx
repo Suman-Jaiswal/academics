@@ -10,6 +10,7 @@ export default function AddCourse() {
     const [name, setCourseName] = useState("");
     const [ltp, setLTP] = useState("");
     const [prof, setProf] = useState("");
+    const [details, setDetails] = useState("");
     const [credit, setCredit] = useState(null);
     const [text, setText] = useState('');
     const { dispatch } = useContext(MyContext)
@@ -39,7 +40,7 @@ export default function AddCourse() {
         setText('Saving...')
         e.preventDefault()
         const doc = {
-            code, name, ltp, prof, credit
+            code, name, ltp, prof, credit, details
         }
         addCourse(doc)
             .then(res => {
@@ -87,6 +88,9 @@ export default function AddCourse() {
                         <br />
                         <Form.Label>Credit</Form.Label>
                         <Form.Control onChange={(e) => setCredit(e.target.value)} type="number" placeholder="Enter credit" />
+                        <br />
+                        <Form.Label>Details</Form.Label>
+                        <Form.Control onChange={(e) => setDetails(e.target.value)} type="text" placeholder="Enter Details of Marking scheme etc." />
                         <br />
                         <Form.Label>Material Links</Form.Label>
                         <Form.Control className='mb-4' as='textarea' rows={8} onChange={(e) => setInput(e.target.value)}
