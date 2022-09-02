@@ -4,9 +4,18 @@ import { addBranch } from '../api';
 
 export default function AddBranch() {
 
+    const programs = [
+        "BTech",
+        "MTech",
+        "PhD",
+        "MSc",
+        "MS",
+    ]
+
     const [show, setShow] = useState(false);
     const [name, setName] = useState("");
-    const [program, setProgram] = useState("");
+    const [program, setProgram] = useState("BTech");
+    const [semester, setSemester] = useState(null);
     const [text, setText] = useState("");
 
     const handleClose = () => setShow(false);
@@ -20,9 +29,10 @@ export default function AddBranch() {
         let branchId = program.toLowerCase();
         branchId += '-';
         let nam = name.toLowerCase().split(' ').join('-');
-        branchId += nam
+        branchId += nam + "-"
+        branchId += semester;
         const doc = {
-            branchId, name, program
+            branchId, name, program, semester
         }
         addBranch(doc)
             .then(res => {
@@ -42,12 +52,22 @@ export default function AddBranch() {
                     </Modal.Header>
                     <Modal.Body>
 
-                        <Form.Label>Branch Name</Form.Label>
-                        <Form.Control onChange={(e) => setName(e.target.value)} type="text" placeholder="e.g. Electrical Engineering" />
+                        <Form.Label>Branch</Form.Label>
+                        <Form.Control required onChange={(e) => setName(e.target.value)} type="text" placeholder="e.g. Electrical Engineering" />
+                        <br />
+
+                        <Form.Label>Semester</Form.Label>
+                        <Form.Control required onChange={(e) => setSemester(e.target.value)} type="number" placeholder="Enter Semester number" />
                         <br />
 
                         <Form.Label>Program</Form.Label>
-                        <Form.Control onChange={(e) => setProgram(e.target.value)} type="text" placeholder="e.g. B-Tech" />
+                        <Form.Select onChange={(e) => setProgram(e.target.value)} aria-label="Default select example">
+                            {
+                                programs.map((p, i) =>
+                                    <option key={i} value={p}>{p}</option>
+                                )
+                            }
+                        </Form.Select>
                         <br />
 
                     </Modal.Body>

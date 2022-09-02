@@ -12,6 +12,10 @@ const branchSchema = mongoose.Schema({
     program: {
         type: String,
         required: true
+    },
+    semester: {
+        type: Number,
+        required: true
     }
 }, {
     timestamps: true

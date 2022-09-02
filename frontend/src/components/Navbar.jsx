@@ -56,7 +56,14 @@ export default function Navbar({ branches }) {
                         <option value="" >Select Branch</option>
                         {
                             branches.map((b, i) =>
-                                <option selected={b.branchId === branchId} key={i} value={b.branchId}>{b.name}</option>
+                                <option selected={b.branchId === branchId} key={i} value={b.branchId}>{
+                                    b.name + " - (" +
+                                    (b.semester === 1 ? "1st)" :
+                                        b.semester === 2 ? "2nd)" :
+                                            b.semester === 3 ? "3rd)" :
+                                                b.semester + "th)")
+
+                                }</option>
                             )
                         }
                     </Form.Select>

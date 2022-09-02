@@ -29,8 +29,9 @@ const App = () => {
             branchId === "" ? <Home /> :
                 <Dashboard branchId={branch.branchId} />
         }
-        <div className="container text-center">
-            Suman Jaiswal &copy; 2022
+        <div className='px-3 d-flex justify-content-between text-secondary' style={{ fontSize: 12 }}>
+            <span className='float-right'>Developed by: Suman Jaiswal</span>
+            <span className='float-right'>Academics IITI &copy; 2022</span>
         </div>
 
     </>
