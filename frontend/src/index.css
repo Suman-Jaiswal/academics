@@ -1,12 +1,18 @@
 body {
-  background-color: rgb(228, 228, 228) !important;
+  background-color: rgb(0, 0, 0) !important;
+  color: white !important;
+}
+.dashboard{
+   background-color: rgb(0, 0, 0) !important;
+   color: white !important;
+}
+.links-li a{
+   text-decoration:  none !important;
 }
 .links-li:hover {
-    background-color: rgb(228, 228, 228) !important;
+  text-decoration: underline;
 }
-.links-li-alt:hover {
-    background-color: white
-}
+
 ::-webkit-scrollbar {
     width: 1px;
     height: 1px;
@@ -17,4 +23,24 @@ body {
 }
 ::-webkit-scrollbar-thumb {
     background: #2303033d;
+}
+.modal-body , .modal-header, .modal-footer{
+   background-color: #202020;
+}
+.form-control, .form-select{
+   background-color: #000 !important; 
+   color: #ffffff !important;
+}
+.btn-close{
+   filter: invert(1);
+}
+.modal-content{
+   background-color: #202020 !important;
+}
+.home{
+   background: url("../public/bg.jpg") no-repeat center center;
+   background-size: cover;
+   opacity: 0.4;
+   height: 90vh;
+   width: 100%;
 }
