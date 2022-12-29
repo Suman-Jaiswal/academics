@@ -5,7 +5,6 @@ import courseRoutes from './backend/routes/course_route.js'
 import linkRoutes from './backend/routes/link_route.js'
 import express from 'express'
 import dotenv from 'dotenv'
-import path from 'path'
 // import cors from 'cors'
 
 //dotenv config
@@ -18,17 +17,9 @@ const app = express()
 
 app.use(express.json())
 
-// app.use(cors())
-
-const __dirname = path.resolve();
-
-// serve static assets if in production
-if (process.env.NODE_ENV === 'production') {
-   app.use(express.static('frontend/build'))
-   app.get('/', (req, res) => {
-      res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-   })
-}
+app.use(cors(
+   { origin: 'https://academics-iiti.netlify.app/' }
+))
 
 
 //API
