@@ -12,7 +12,7 @@
       "client": "npm start --prefix frontend",
       "server": "nodemon server",
       "dev": "concurrently \"npm run server\" \"npm run client\"",
-      "build": "npm install --prefix frontend && npm run build --prefix frontend"
+      "build": "npm install --prefix frontend && npm run build --prefix frontend && npm install"
    },
    "keywords": [],
    "author": "Suman Jaiswal",
