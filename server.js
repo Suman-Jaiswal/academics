@@ -5,7 +5,7 @@ import courseRoutes from './backend/routes/course_route.js'
 import linkRoutes from './backend/routes/link_route.js'
 import express from 'express'
 import dotenv from 'dotenv'
-// import cors from 'cors'
+import cors from 'cors'
 
 //dotenv config
 dotenv.config()
