@@ -23,6 +23,9 @@ app.use(cors(
 
 
 //API
+app.get('/', (req, res) => {
+   res.send('API is running...')
+})
 app.use('/api/branches', branchRoutes)
 app.use('/api/slots', slotRoutes)
 app.use('/api/courses', courseRoutes)
