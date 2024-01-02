@@ -16,18 +16,20 @@ const App = () => {
 
    useEffect(() => {
       fetchBranches().then((res) => setBranches(res.data));
+      const bId = localStorage.getItem("branchId");
+      setBranchId(bId);
    }, [])
 
    useEffect(() => {
-      setBranchId(branch.branchId);
+
    }, [branch])
 
 
    return (<>
-      <Navbar branches={branches} />
+      <Navbar branches={branches} setBranchId={setBranchId} branchId={branchId} />
       {
          branchId === "" ? <Home /> :
-            <Dashboard branchId={branch.branchId} />
+            <Dashboard branchId={branchId} />
       }
       <div className='px-3 d-flex justify-content-between py-3 w-100' style={{ fontSize: 12, position: "fixed", bottom: 0, color: "#eee", zIndex: -1 }}>
          <span className=''>Developed by: Suman Jaiswal</span>

@@ -1,14 +1,12 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { useEffect } from 'react';
 import { Form } from 'react-bootstrap'
 import { MyContext } from '../contexts/MyContext'
 import AddBranch from './AddBranch';
 
-export default function Navbar({ branches }) {
+export default function Navbar({ branches, setBranchId, branchId }) {
 
    const { dispatch } = useContext(MyContext)
-
-   const [branchId, setBranchId] = useState("");
 
    useEffect(() => {
       const id = localStorage.getItem('branchId');
@@ -35,7 +33,7 @@ export default function Navbar({ branches }) {
             }
          })
       }
-   }, [branches, dispatch, branchId])
+   }, [branches, dispatch, branchId, setBranchId])
 
    const selectBranch = (e) => {
       setBranchId(e.target.value)
