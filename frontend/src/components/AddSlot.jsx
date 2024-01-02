@@ -26,7 +26,7 @@ export default function AddSlot({ day, time, courses }) {
       }
 
       const doc = {
-         courseId, branchId, day, startTime: parseInt(time.split(' ')[0]), slotType
+         courseId, branchId, day, startTime: time, slotType
       }
       addSlot(doc)
          .then(res => {

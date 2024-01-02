@@ -33,7 +33,7 @@ export default function Schedule({ courses, slots }) {
                   {
                      timings.map((time, i) => <div key={i} className='p-1'><Block
                         courses={courses}
-                        slot={slots.filter(s => s.startTime.toString() === time.split(' ')[0] && s.day === day)}
+                        slot={slots.filter(s => s.startTime.toString() === time && s.day === day)}
                         day={day}
                         time={time}
                      />

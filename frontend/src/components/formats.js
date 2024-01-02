@@ -1,14 +1,14 @@
 export const timings = [
-    "8 AM",
-    "9 AM",
-    "10 AM",
-    "11 AM",
-    "12 PM",
-    "1 PM",
-    "2 PM",
-    "3 PM",
-    "4 PM",
-    "5 PM",
+    "08:30",
+    "09:30",
+    "10:30",
+    "11:30",
+    "12:30",
+    "13:30",
+    "14:30",
+    "15:30",
+    "16:30",
+    "17:30",
 ]
 
 export const days = [
@@ -17,6 +17,7 @@ export const days = [
     "Wednesday",
     "Thursday",
     "Friday",
+    "Saturday",
 ]
 
 export const renderDays = [
@@ -25,4 +26,5 @@ export const renderDays = [
     "WED",
     "THU",
     "FRI",
+    "SAT",
 ]
