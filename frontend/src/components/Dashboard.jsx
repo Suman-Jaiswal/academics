@@ -5,6 +5,7 @@ import "../App.css"
 import Schedule from './Schedule'
 import Courses from './Courses'
 import OtherLinks from './OtherLinks'
+import { colors } from './styles'
 
 export default function Dashboard({ branchId }) {
 
@@ -13,37 +14,45 @@ export default function Dashboard({ branchId }) {
 
 
    useEffect(() => {
-      fetchCourses(branchId).then(res => dispatch({ type: "FETCH_COURSES", payload: res.data }))
-      fetchSlots(branchId).then(res => dispatch({ type: "FETCH_SLOTS", payload: res.data }))
-      fetchLinks(branchId).then(res => dispatch({ type: "FETCH_LINKS", payload: res.data }))
+      fetchCourses(branchId).then(res => dispatch({ type: "FETCH_COURSES", payload: res }))
+      fetchSlots(branchId).then(res => dispatch({ type: "FETCH_SLOTS", payload: res }))
+      fetchLinks(branchId).then(res => dispatch({ type: "FETCH_LINKS", payload: res }))
    }, [dispatch, branch, branchId])
 
 
    return (
       <>
-         <div className='d-flex w-100 dashboard justify-content-between gap-3 px-3 my-4'>
-
-            <div className="left-panel ps-1 p-3 pb-0" style={{
-               border: "2px solid #6c757d",
-               borderRadius: 5,
-               overflowX: "auto",
-               minWidth: 450,
-            }}>
+         <div className='row'>
+            <div className="col-12 col-md-8 p-3 ps-4" >
                <Schedule courses={courses} slots={slots} />
+               <div className='d-flex align-items-center justify-content-center' style={{
+                  height: 40
+               }}>
+                  <div className="mx-3 d-flex align-items-center">
+                     <div style={{
+                        width: 10, height: 10, backgroundColor: colors.lecColor,
+                     }} ></div>
+                     <div className="ms-1" style={{ fontSize: 12 }}>Lectures</div>
+                  </div>
+                  <div className="mx-3 d-flex align-items-center">
+                     <div style={{
+                        width: 10, height: 10, backgroundColor: colors.tutColor,
+                     }} ></div>
+                     <div className="ms-1" style={{ fontSize: 12 }}>Tutorials</div>
+                  </div>
+                  <div className="mx-3 d-flex align-items-center">
+                     <div style={{
+                        width: 10, height: 10, backgroundColor: colors.pracColor,
+                     }} ></div>
+                     <div className="ms-1" style={{ fontSize: 12 }}>Practicals</div>
+                  </div>
+
+               </div>
             </div>
 
-            <div className="right-panel p-3"
-               style={{
-                  minWidth: 430,
-                  border: "2px solid #6c757d",
-                  borderRadius: 5,
-                  overflowY: "scroll",
-                  height: 450,
-
-               }}>
+            <div className="col-12 col-md-4 p-3 ps-4 ps-md-0">
                <Courses courses={courses} links={links} />
             </div>
-
          </div>
          <OtherLinks links={links} />
          <br />

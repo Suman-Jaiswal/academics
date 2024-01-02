@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 
 const myReducer = (state, action) => {
     switch (action.type) {
@@ -26,7 +26,7 @@ const myReducer = (state, action) => {
                 error: false,
             }
         case 'EDIT_COURSE':
-            const ind = state.courses.findIndex(o => o._id === action.payload.id)
+            const ind = state.courses.findIndex(o => o.id === action.payload.id)
 
             state.courses[ind] = { ...state.courses[ind], ...action.payload.data }
 
@@ -37,7 +37,7 @@ const myReducer = (state, action) => {
                 // error: false,
             }
         case 'DELETE_COURSE':
-            const arr = state.courses.filter(x => x._id !== action.payload)
+            const arr = state.courses.filter(x => x.id !== action.payload)
             return {
                 ...state,
                 courses: arr,
@@ -62,7 +62,7 @@ const myReducer = (state, action) => {
                 error: false,
             }
         case 'DELETE_SLOT':
-            const arr2 = state.slots.filter(x => x._id !== action.payload)
+            const arr2 = state.slots.filter(x => x.id !== action.payload)
             return {
                 ...state,
                 slots: arr2,
@@ -101,7 +101,7 @@ const myReducer = (state, action) => {
         case 'REMOVE_LINK':
             return {
                 ...state,
-                links: state.links.filter(l => l._id !== action.payload),
+                links: state.links.filter(l => l.id !== action.payload),
                 loading: false,
                 error: false,
             }
@@ -148,11 +148,11 @@ function MyContextProvider(props) {
 
     const [state, dispatch] = useReducer(myReducer, initialState);
 
-    // useEffect(() => {
-    //     console.log('courses', state.courses)
-    //     console.log('slots', state.slots)
-    //     console.log('links', state.links)
-    // }, [state])
+    useEffect(() => {
+        // console.log('courses', state.courses)
+        // console.log('slots', state.slots)
+        console.log('links', state.links)
+    }, [state])
 
     return (
         <MyContext.Provider value={{ state, dispatch }}>

@@ -51,10 +51,10 @@ export default function DeleteCourse({ id }) {
                 </Modal.Body>
                 <Modal.Footer>
                     <div className={text === "An error occured!" ? "text-danger" : null} >{text}</div>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button size='sm' variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="danger" onClick={handleSubmit}>
+                    <Button size='sm' variant="danger" onClick={handleSubmit} disabled={text === 'Deleting...'} >
                         Delete
                     </Button>
                 </Modal.Footer>

@@ -19,7 +19,7 @@ export default function DeleteSlot({ id }) {
     const handleSubmit = (id) => {
         setText('Deleting...')
         if (!id) {
-            setText("couldn't be deleted")
+            setText("Couldn't be deleted")
             return
         }
         else {
@@ -27,7 +27,7 @@ export default function DeleteSlot({ id }) {
                 .then(res => {
                     setShow(false)
                     setText("")
-                    console.log(res.data)
+                    console.log(res)
                     dispatch({ type: "DELETE_SLOT", payload: id })
                 })
                 .catch(e => setText('An error occured!'))
@@ -36,17 +36,17 @@ export default function DeleteSlot({ id }) {
     }
     return (<>
 
-        <FontAwesomeIcon className='text-danger' onClick={handleShow} size='xs' icon={faTrash} />
+        <FontAwesomeIcon onClick={handleShow} size='xs' icon={faTrash} />
         <Modal show={show} onHide={handleClose}>
             <Modal.Body>
                 Delete Slot?
             </Modal.Body>
             <Modal.Footer>
                 <div className={text === "An error occured!" ? "text-danger" : null} >{text}</div>
-                <Button variant="secondary" onClick={handleClose}>
+                <Button size='sm' variant="secondary" onClick={handleClose}>
                     Close
                 </Button>
-                <Button variant="danger" onClick={() => handleSubmit(id)}>
+                <Button size='sm' variant="danger" onClick={() => handleSubmit(id)} disabled={text === 'Deleting...'}>
                     Delete
                 </Button>
             </Modal.Footer>

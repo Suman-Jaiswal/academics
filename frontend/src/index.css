@@ -1,46 +1,60 @@
 body {
-  background-color: rgb(0, 0, 0) !important;
-  color: white !important;
-}
-.dashboard{
    background-color: rgb(0, 0, 0) !important;
    color: white !important;
 }
-.links-li a{
-   text-decoration:  none !important;
+
+.dashboard {
+   background-color: rgb(0, 0, 0) !important;
+   color: white !important;
 }
+
+.links-li a {
+   text-decoration: none !important;
+}
+
 .links-li:hover {
-  text-decoration: underline;
+   text-decoration: underline;
 }
 
 ::-webkit-scrollbar {
-    width: 1px;
-    height: 1px;
+   width: 1px;
+   height: 1px;
 }
+
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #ffffff;
+   background: #ffffff;
 }
+
 ::-webkit-scrollbar-thumb {
-    background: #2303033d;
+   background: #2303033d;
 }
-.modal-body , .modal-header, .modal-footer{
+
+.modal-body,
+.modal-header,
+.modal-footer {
    background-color: #202020;
 }
-.form-control, .form-select{
-   background-color: #000 !important; 
+
+.form-control,
+.form-select {
+   background-color: #000 !important;
    color: #ffffff !important;
 }
-.btn-close{
+
+.btn-close {
    filter: invert(1);
 }
-.modal-content{
+
+.modal-content {
    background-color: #202020 !important;
 }
-.home{
+
+.home {
    background: url("../public/bg.jpg") no-repeat center center;
    background-size: cover;
-   opacity: 0.4;
    height: 90vh;
    width: 100%;
+   background-color: #000000a4;
+   background-blend-mode: soft-light;
 }

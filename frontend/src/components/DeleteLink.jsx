@@ -24,10 +24,9 @@ export default function DeleteLink({ id }) {
             .then(res => {
                 setShow(false)
                 setText("")
-                deleteLinkById(id)
-                    .then(res => dispatch({ type: "REMOVE_LINK", payload: id }))
+                dispatch({ type: "REMOVE_LINK", payload: id })
             })
-            .catch(e => setText('An error occured!'))
+            .catch(e => console.log(e))
     }
     return (
         <>
@@ -40,15 +39,13 @@ export default function DeleteLink({ id }) {
                 </Modal.Body>
                 <Modal.Footer>
                     <div className={text === "An error occured!" ? "text-danger" : null} >{text}</div>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button size='sm' variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="danger" onClick={handleSubmit}>
+                    <Button size='sm' variant="danger" onClick={handleSubmit} disabled={text === 'Deleting...'}>
                         Delete
                     </Button>
                 </Modal.Footer>
-
-
             </Modal>
         </>
 

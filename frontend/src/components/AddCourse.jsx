@@ -50,16 +50,16 @@ export default function AddCourse() {
             var raw = [...links];
             for (let i = 0; i < raw.length; i++) {
                const element = raw[i];
-               element.parentId = res.data._id
+               element.parentId = res.id
             }
             console.log(raw)
-            dispatch({ type: "ADD_COURSE", payload: res.data })
+            dispatch({ type: "ADD_COURSE", payload: res })
             if (input === "") {
                return
             }
             addLinks(raw)
                .then(res => {
-                  dispatch({ type: "ADD_LINKS", payload: res.data })
+                  dispatch({ type: "ADD_LINKS", payload: res })
                })
                .catch(e => console.log(e))
          })
@@ -68,42 +68,63 @@ export default function AddCourse() {
 
    return (
       <>
-         <Button size='sm' style={{ fontSize: 12 }} variant='outline-primary' onClick={handleShow} >Add Course</Button>
-         <Modal show={show} onHide={handleClose} >
-            <Form>
+         <Button size='sm' style={{ fontSize: 12 }} variant='primary' onClick={handleShow} >Add Course</Button>
+         <Modal centered show={show} onHide={handleClose} >
+            <Form style={{ fontSize: 14 }}>
                <Modal.Header closeButton>
-                  <Modal.Title>Add Course</Modal.Title>
+                  <Modal.Title style={{ fontSize: 16 }}>Add Course</Modal.Title>
                </Modal.Header>
                <Modal.Body>
-                  <Form.Label>Course Code</Form.Label>
-                  <Form.Control required onChange={(e) => setCourseCode(e.target.value)} type="text" placeholder="e.g. EE 204" />
-                  <br />
-                  <Form.Label>Course Name</Form.Label>
-                  <Form.Control onChange={(e) => setCourseName(e.target.value)} type="text" placeholder="e.g. Analog Circuits" />
-                  <br />
-                  <Form.Label>L-T-P</Form.Label>
-                  <Form.Control onChange={(e) => setLTP(e.target.value)} type="text" placeholder="e.g. 3-1-0" />
-                  <br />
-                  <Form.Label>Professor</Form.Label>
-                  <Form.Control onChange={(e) => setProf(e.target.value)} type="text" placeholder="Enter professor name..." />
-                  <br />
-                  <Form.Label>Credit</Form.Label>
-                  <Form.Control onChange={(e) => setCredit(e.target.value)} type="number" placeholder="Enter credit" />
-                  <br />
-                  <Form.Label>Details</Form.Label>
-                  <Form.Control onChange={(e) => setDetails(e.target.value)} type="text" placeholder="Enter Details of Marking scheme etc." />
-                  <br />
+                  <div className="row">
+                     <div className="col-md-6">
+                        <Form.Label>Course Code</Form.Label>
+                        <Form.Control style={{ fontSize: 14 }} required onChange={(e) => setCourseCode(e.target.value)} type="text" placeholder="e.g. EE 204" />
+                        <br />
+                     </div>
+                     <div className="col-md-6">
+                        <Form.Label>Course Name</Form.Label>
+                        <Form.Control style={{ fontSize: 14 }} onChange={(e) => setCourseName(e.target.value)} type="text" placeholder="e.g. Analog Circuits" />
+                        <br />
+                     </div>
+                  </div>
+
+                  <div className="row">
+                     <div className="col-md-6">
+                        <Form.Label>L-T-P</Form.Label>
+                        <Form.Control style={{ fontSize: 14 }} onChange={(e) => setLTP(e.target.value)} type="text" placeholder="e.g. 3-1-0" />
+                        <br />
+                     </div>
+                     <div className="col-md-6">
+                        <Form.Label>Professor</Form.Label>
+                        <Form.Control style={{ fontSize: 14 }} onChange={(e) => setProf(e.target.value)} type="text" placeholder="Enter professor name..." />
+                        <br />
+                     </div>
+                  </div>
+
+                  <div className="row">
+                     <div className="col-md-6">
+                        <Form.Label>Credit</Form.Label>
+                        <Form.Control style={{ fontSize: 14 }} onChange={(e) => setCredit(e.target.value)} type="number" placeholder="Enter credit" />
+                        <br />
+                     </div>
+                     <div className="col-md-6">
+                        <Form.Label>Details</Form.Label>
+                        <Form.Control style={{ fontSize: 14 }} onChange={(e) => setDetails(e.target.value)} type="text" placeholder="Enter Details of Marking scheme etc." />
+                        <br />
+                     </div>
+                  </div>
+
                   <Form.Label>Material Links</Form.Label>
-                  <Form.Control className='mb-4' as='textarea' rows={8} onChange={(e) => setInput(e.target.value)}
+                  <Form.Control style={{ fontSize: 14 }} className='mb-4' as='textarea' rows={8} onChange={(e) => setInput(e.target.value)}
                      placeholder={'Add links in each line \n ********example*******\n <Title>,<URL>\n <Title>,<URL>\n <Title>,<URL>\n  ...\n '} />
-                  <br />
+
                </Modal.Body>
                <Modal.Footer>
                   <div className={text === "An error occured!" ? "text-danger" : null} >{text}</div>
-                  <Button variant="secondary" onClick={handleClose}>
+                  <Button size='sm' variant="secondary" onClick={handleClose}>
                      Close
                   </Button>
-                  <Button variant="primary" type='submit' onClick={handleSubmit}>
+                  <Button size='sm' variant="primary" type='submit' onClick={handleSubmit} disabled={text === "Saving..."}>
                      Save
                   </Button>
                </Modal.Footer>

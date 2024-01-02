@@ -42,15 +42,14 @@ export default function Navbar({ branches, setBranchId, branchId }) {
 
    return (
       <>
-         <div className="bar d-flex justify-content-between align-items-center py-2 px-3" >
-            <div className='d-flex justify-content-start align-items-center' style={{ minWidth: 300 }}>
+         <div className="row py-2 bg-dark" >
+            <div className='col-md-6 px-4 d-flex justify-content-center justify-content-md-start align-items-center my-1' >
                <img src="icon.png" alt="" style={{ filter: "invert(1)" }} width={40} height={40} />
                <div className="h5 m-0 ms-1">Academics</div>
             </div>
-            <div className='d-flex justify-content-center align-items-center' style={{ minWidth: 400 }}>
+            <div className='col-md-6 px-4 mx-auto d-flex justify-content-center justify-content-md-end align-items-center my-2' >
                <div className='me-2 '>  <AddBranch /></div>
-
-               <Form.Select defaultValue={branchId} onChange={(e) => selectBranch(e)} aria-label="Default select example">
+               <Form.Select size='sm' style={{ width: 200 }} className='bg-dark' defaultValue={branchId} onChange={(e) => selectBranch(e)} aria-label="Default select example">
                   <option value="" >Select Branch</option>
                   {
                      branches.map((b, i) =>
@@ -68,7 +67,6 @@ export default function Navbar({ branches, setBranchId, branchId }) {
             </div>
 
          </div>
-         <hr className='m-0 mb-1' />
       </>
    )
 }

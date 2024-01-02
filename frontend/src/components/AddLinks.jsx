@@ -42,7 +42,7 @@ export default function AddLinks({ parentId }) {
             .then(res => {
                 setShow(false)
                 setText("")
-                dispatch({ type: "ADD_LINKS", payload: res.data })
+                dispatch({ type: "ADD_LINKS", payload: res })
             })
             .catch(e => setText('An error occured!'))
     }
@@ -52,23 +52,23 @@ export default function AddLinks({ parentId }) {
             <span onClick={handleShow} className='bg-primary px-1 rounded ms-1'>
                 <FontAwesomeIcon role={'button'} size='xs' className='text-light fw-bold ' icon={faPlus} />
             </span>
-            <Modal show={show} onHide={handleClose}>
+            <Modal centered show={show} onHide={handleClose}>
                 <Form>
                     <Modal.Header closeButton>
-                        <Modal.Title>Add Links</Modal.Title>
+                        <Modal.Title style={{ fontSize: 16 }}>Add Links</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <br />
-                        <Form.Control className='mb-4' as='textarea' rows={8} onChange={(e) => setInput(e.target.value)}
+
+                        <Form.Control style={{ fontSize: 14 }} as='textarea' rows={8} onChange={(e) => setInput(e.target.value)}
                             placeholder={'Add links in each line \n ********example*******\n <Title>,<URL>\n <Title>,<URL>\n <Title>,<URL>\n  ...\n '} />
-                        <br />
+
                     </Modal.Body>
                     <Modal.Footer>
                         <div className={text === "An error occured!" ? "text-danger" : null} >{text}</div>
-                        <Button variant="secondary" onClick={handleClose}>
+                        <Button size='sm' variant="secondary" onClick={handleClose}>
                             Close
                         </Button>
-                        <Button variant="primary" type='submit' onClick={handleSubmit}>
+                        <Button size='sm' variant="primary" type='submit' onClick={handleSubmit} disabled={text === "Saving..."}>
                             Save
                         </Button>
                     </Modal.Footer>

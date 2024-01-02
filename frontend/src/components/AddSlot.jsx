@@ -32,7 +32,7 @@ export default function AddSlot({ day, time, courses }) {
          .then(res => {
             setShow(false)
             setText("")
-            dispatch({ type: "ADD_SLOT", payload: res.data })
+            dispatch({ type: "ADD_SLOT", payload: res })
          })
          .catch(e => setText('An error occured!'))
    }
@@ -44,33 +44,37 @@ export default function AddSlot({ day, time, courses }) {
       }}><FontAwesomeIcon onClick={handleShow} role={'button'} size='lg' className='text-secondary' icon={faPlus} />
 
       </div>
-      <Modal show={show} onHide={handleClose}>
+      <Modal centered show={show} onHide={handleClose}>
          <Form>
             <Modal.Header closeButton>
-               <Modal.Title>Add Slot</Modal.Title>
+               <Modal.Title style={{ fontSize: 16 }}>Add Slot</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{ fontSize: 14 }}>
                <Form.Label>Slot Type</Form.Label>
-               <Form.Select onChange={(e) => setType(e.target.value)} aria-label="Default select example">
+               <Form.Select style={{ fontSize: 14 }} onChange={(e) => setType(e.target.value)} aria-label="Default select example">
                   {
-                     ['L', 'T', 'P'].map((t, i) => <option key={i} value={t}>{t}</option>)
+                     [
+                        { value: 'L', label: 'Lecture' },
+                        { value: 'T', label: 'Tutorial' },
+                        { value: 'P', label: 'Practical' }
+                     ].map((t, i) => <option key={i} value={t.value}>{t.label}</option>)
                   }
                </Form.Select>
                <br />
                <Form.Label>Select Course</Form.Label>
-               <Form.Select onChange={(e) => setCourseId(e.target.value)} aria-label="Default select example">
+               <Form.Select style={{ fontSize: 14 }} onChange={(e) => setCourseId(e.target.value)} aria-label="Default select example">
                   <option value={''}>...</option>
                   {
-                     courses.length > 0 ? courses.map((c, i) => c.code !== "" ? <option key={i} value={c._id}>{c.code}</option> : null) : null
+                     courses.length > 0 ? courses.map((c, i) => c.code !== "" ? <option key={i} value={c.id}>{c.code}</option> : null) : null
                   }
                </Form.Select>
             </Modal.Body>
             <Modal.Footer>
                <div className={text === "An error occured!" ? "text-danger" : null} >{text}</div>
-               <Button variant="secondary" onClick={handleClose}>
+               <Button size='sm' variant="secondary" onClick={handleClose}>
                   Close
                </Button>
-               <Button variant="primary" type='submit' onClick={handleSubmit}>
+               <Button size='sm' variant="primary" type='submit' onClick={handleSubmit} disabled={text === "Saving..."}>
                   Save
                </Button>
             </Modal.Footer>

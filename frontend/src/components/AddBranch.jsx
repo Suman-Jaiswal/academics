@@ -44,27 +44,27 @@ export default function AddBranch() {
 
    return (
       <>
-         <Button size='' style={{ width: 120 }} variant='primary' onClick={handleShow}  >Add Branch</Button>
-         <Modal show={show} onHide={handleClose}>
+         <Button size='sm' style={{ width: 100 }} variant='primary' onClick={handleShow}  >Add Branch</Button>
+         <Modal centered show={show} onHide={handleClose}>
             <Form>
                <Modal.Header closeButton>
-                  <Modal.Title>Add Branch</Modal.Title>
+                  <Modal.Title style={{ fontSize: 16 }}>Add Branch</Modal.Title>
                </Modal.Header>
-               <Modal.Body>
+               <Modal.Body style={{ fontSize: 14 }}>
 
                   <Form.Label>Branch</Form.Label>
-                  <Form.Control required onChange={(e) => setName(e.target.value)} type="text" placeholder="e.g. Electrical Engineering" />
+                  <Form.Control style={{ fontSize: 14 }} required onChange={(e) => setName(e.target.value)} type="text" placeholder="e.g. Electrical Engineering" />
                   <br />
 
                   <Form.Label>Semester</Form.Label>
-                  <Form.Control required onChange={(e) => setSemester(e.target.value)} type="number" placeholder="Enter Semester number" />
+                  <Form.Control style={{ fontSize: 14 }} required onChange={(e) => setSemester(e.target.value)} type="number" placeholder="Enter Semester number" />
                   <br />
 
                   <Form.Label>Program</Form.Label>
-                  <Form.Select onChange={(e) => setProgram(e.target.value)} aria-label="Default select example">
+                  <Form.Select style={{ fontSize: 14 }} onChange={(e) => setProgram(e.target.value)} aria-label="Default select example">
                      {
                         programs.map((p, i) =>
-                           <option key={i} value={p}>{p}</option>
+                           <option style={{ fontSize: 14 }} key={i} value={p}>{p}</option>
                         )
                      }
                   </Form.Select>
@@ -73,10 +73,10 @@ export default function AddBranch() {
                </Modal.Body>
                <Modal.Footer>
                   <div className={text === "An error occured!" ? "text-danger" : null} >{text}</div>
-                  <Button variant="secondary" onClick={handleClose}>
+                  <Button size='sm' variant="secondary" onClick={handleClose}>
                      Close
                   </Button>
-                  <Button variant="primary" type='submit' onClick={handleSubmit}>
+                  <Button size='sm' variant="primary" type='submit' onClick={handleSubmit} disabled={text === "Saving..."}>
                      Save
                   </Button>
                </Modal.Footer>
