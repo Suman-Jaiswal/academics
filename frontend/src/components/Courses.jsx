@@ -44,7 +44,7 @@ export default function Courses({ links, courses }) {
                      className='text-light bg-dark mt-2 py-2 rounded row m-0 align-items-center'
                      onClick={() => handleClick(c.code)}
                   >
-                     <div style={{ fontSize: 12 }} className="col-11"><b>{c.code}:</b>{c.name}</div>
+                     <div style={{ fontSize: 12 }} className="col-11"><b>{c.code}: </b>{c.name}</div>
 
                      <div className='col-1'>
                         <FontAwesomeIcon role={'button'} icon={show.includes(c.code) ? faCaretUp : faCaretDown} />
