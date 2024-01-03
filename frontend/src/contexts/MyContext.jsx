@@ -151,7 +151,7 @@ function MyContextProvider(props) {
     useEffect(() => {
         // console.log('courses', state.courses)
         // console.log('slots', state.slots)
-        console.log('links', state.links)
+        // console.log('links', state.links)
     }, [state])
 
     return (

@@ -1,15 +1,11 @@
 import Navbar from './components/Navbar'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { useEffect } from 'react';
 import Dashboard from './components/Dashboard';
 import Home from './components/Home';
 import { fetchBranches } from './api';
-import { MyContext } from './contexts/MyContext';
 
 const App = () => {
-
-   const { state } = useContext(MyContext)
-   const { branch } = state
 
    const [branchId, setBranchId] = useState("");
    const [branches, setBranches] = useState([]);
@@ -17,13 +13,11 @@ const App = () => {
    useEffect(() => {
       fetchBranches().then((res) => setBranches(res));
       const bId = localStorage.getItem("branchId");
-      setBranchId(bId);
+      if (bId)
+         setBranchId(bId);
    }, [])
 
-   useEffect(() => {
-
-   }, [branch])
-
+   console.log(branchId);
 
    return (<>
       <Navbar branches={branches} setBranchId={setBranchId} branchId={branchId} />
