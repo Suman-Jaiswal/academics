@@ -26,10 +26,11 @@ export default function Courses({ links, courses }) {
    return (
       <div className='course-wrapper p-3'
          style={{
-            border: "1px solid #333",
+            border: "1px solid #444",
             borderRadius: 10,
-            height: 420,
             overflowY: "auto",
+            height: '100%',
+            minHeight: 'fit-content'
          }}>
          <div className="header d-flex justify-content-between">
             <div className="h6 my-auto text-center">Courses</div>

@@ -9,6 +9,7 @@ export const timings = [
     "15:30",
     "16:30",
     "17:30",
+    "18:30",
 ]
 
 export const days = [

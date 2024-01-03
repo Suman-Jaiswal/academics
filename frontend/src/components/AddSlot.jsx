@@ -38,11 +38,8 @@ export default function AddSlot({ day, time, courses }) {
    }
 
    return (<>
-      <div className='bg-dark d-flex justify-content-center align-items-center' style={{
-         width: 80,
-         height: 60
-      }}><FontAwesomeIcon onClick={handleShow} role={'button'} size='lg' className='text-secondary' icon={faPlus} />
-
+      <div onClick={handleShow} className='text-secondary rounded bg-dark w-100 h-100 d-flex align-items-center justify-content-center'>
+         <FontAwesomeIcon role={'button'} size='lg' icon={faPlus} />
       </div>
       <Modal centered show={show} onHide={handleClose}>
          <Form>

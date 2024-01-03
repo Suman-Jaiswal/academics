@@ -58,3 +58,7 @@ body {
    background-color: #000000a4;
    background-blend-mode: soft-light;
 }
+
+hr {
+   background-color: #444 !important;
+}

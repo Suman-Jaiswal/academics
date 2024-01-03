@@ -4,46 +4,46 @@ import { days, renderDays, timings } from './formats'
 
 export default function Schedule({ courses, slots }) {
    return (
-      <div className='schedule-wrapper px-2 py-3'
+      <div className='schedule-wrapper'
          style={{
-            border: "1px solid #333",
+            border: "1px solid #444",
             borderRadius: 10,
-            overflowX: "auto",
          }}
       >
-         <div className='d-flex'>
-            <div className='p-1'><div className='text-center h6' style={{ width: 80, height: 30 }}>Schedule</div></div>
-            {
-               timings.map((slot, i) => <div key={i} className='p-1'>
-                  <div className='text-center'
-                     style={{ width: 80, fontSize: 12 }}>{slot}
-                  </div>
-               </div>)
-            }
-         </div>
+         <div className="d-flex">
+            <div className='bg-dark' style={{
+               width: 81, display: 'flex', flexDirection: 'column', borderRight: '1px solid #444',
+               borderTopLeftRadius: 10,
+               borderBottomLeftRadius: 10
 
-         {
-            days.map((day, i) => <div key={i} >
-               <div className='d-flex'>
-                  <div className='p-1 d-flex align-items-center'>
-                     <div className='text-center '
-                        style={{ width: 80, fontSize: 12 }}>{renderDays[i]}
-                     </div>
-                  </div>
-                  {
-                     timings.map((time, i) => <div key={i} className='p-1'><Block
-                        courses={courses}
-                        slot={slots.filter(s => s.startTime.toString() === time && s.day === day)}
-                        day={day}
-                        time={time}
-                     />
-                     </div>)
-                  }
-               </div>
+            }}>
+               <Block type='text' text={'Schedule'} />
+               {
+                  days.map((day, i) => <Block type='text' text={renderDays[i]} />)
+               }
             </div>
-            )
-         }
+            <div style={{ width: 'auto', overflowX: 'auto', display: 'flex' }} >
+               {
+                  timings.map((time, i) =>
+                     <div style={{ width: 80, display: 'flex', flexDirection: 'column', paddingBottom: 5 }}>
+                        <div className="bg-dark">  <Block type={'text'} text={time} /></div>
 
+                        {
+                           days.map((day, i) =>
+                              <div key={i} ><Block
+                                 courses={courses}
+                                 slot={slots.filter(s => s.startTime.toString() === time && s.day === day)}
+                                 day={day}
+                                 time={time}
+                              />
+                              </div>
+                           )
+                        }
+                     </div>
+                  )
+               }
+            </div>
+         </div>
       </div>
    )
 }

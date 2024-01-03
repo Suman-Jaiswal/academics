@@ -31,9 +31,9 @@ const App = () => {
          branchId === "" ? <Home /> :
             <Dashboard branchId={branchId} />
       }
-      <div className='px-4 d-flex justify-content-between py-3 w-100 text-secondary' style={{ fontSize: 12, bottom: 0, zIndex: -1 }}>
-         <span className=''>Developed by: Suman Jaiswal</span>
-         <span className=''>Academics IITI &copy; 2022</span>
+      <div className='px-4 d-flex justify-content-between py-2 w-100 bg-dark text-secondary' style={{ fontSize: 12, position: 'fixed', bottom: 0, zIndex: 1 }}>
+         <span className='p' style={{ fontSize: 12 }} >Developed by: Suman Jaiswal</span>
+         <span className='p' style={{ fontSize: 12 }}>Academics IITI &copy; 2022</span>
       </div>
 
    </>
