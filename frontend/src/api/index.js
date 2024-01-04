@@ -180,3 +180,21 @@ export const fetchAllData = async () => {
     const links = await fetchAllLinks();
     return { branches, courses, slots, links };
 }
+
+export const sendFeedback = async (doc) => {
+    const docRef = await addDoc(collection(firestore, "feedback"), doc);
+    return { ...doc, id: docRef.id };
+}
+
+export const fetchFeedback = async () => {
+    const querySnapshot = await getDocs(query(collection(firestore, "feedback")));
+    let docs = [];
+    querySnapshot.forEach((doc) => {
+        docs.push({ ...doc.data(), id: doc.id });
+    });
+    return docs;
+}
+
+export const deleteFeedbackById = async (id) => {
+    await deleteDoc(doc(firestore, "feedback", id));
+}

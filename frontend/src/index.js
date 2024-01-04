@@ -5,11 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MyContextProvider from './contexts/MyContext';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
     <React.StrictMode>
         <MyContextProvider>
-            <App />
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
         </MyContextProvider>
     </React.StrictMode>,
     document.getElementById('root')

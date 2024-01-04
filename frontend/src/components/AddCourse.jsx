@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import { addCourse, addLinks } from '../api';
 import { MyContext } from '../contexts/MyContext';
+import Popup from './Popup';
 
 export default function AddCourse() {
 
@@ -69,68 +70,15 @@ export default function AddCourse() {
    return (
       <>
          <Button size='sm' style={{ fontSize: 12 }} variant='primary' onClick={handleShow} >Add Course</Button>
-         <Modal centered show={show} onHide={handleClose} >
-            <Form style={{ fontSize: 14 }}>
-               <Modal.Header closeButton>
-                  <Modal.Title style={{ fontSize: 16 }}>Add Course</Modal.Title>
-               </Modal.Header>
-               <Modal.Body>
-                  <div className="row">
-                     <div className="col-md-6">
-                        <Form.Label>Course Code</Form.Label>
-                        <Form.Control style={{ fontSize: 14 }} required onChange={(e) => setCourseCode(e.target.value)} type="text" placeholder="e.g. EE 204" />
-                        <br />
-                     </div>
-                     <div className="col-md-6">
-                        <Form.Label>Course Name</Form.Label>
-                        <Form.Control style={{ fontSize: 14 }} onChange={(e) => setCourseName(e.target.value)} type="text" placeholder="e.g. Analog Circuits" />
-                        <br />
-                     </div>
-                  </div>
-
-                  <div className="row">
-                     <div className="col-md-6">
-                        <Form.Label>L-T-P</Form.Label>
-                        <Form.Control style={{ fontSize: 14 }} onChange={(e) => setLTP(e.target.value)} type="text" placeholder="e.g. 3-1-0" />
-                        <br />
-                     </div>
-                     <div className="col-md-6">
-                        <Form.Label>Professor</Form.Label>
-                        <Form.Control style={{ fontSize: 14 }} onChange={(e) => setProf(e.target.value)} type="text" placeholder="Enter professor name..." />
-                        <br />
-                     </div>
-                  </div>
-
-                  <div className="row">
-                     <div className="col-md-6">
-                        <Form.Label>Credit</Form.Label>
-                        <Form.Control style={{ fontSize: 14 }} onChange={(e) => setCredit(e.target.value)} type="number" placeholder="Enter credit" />
-                        <br />
-                     </div>
-                     <div className="col-md-6">
-                        <Form.Label>Details</Form.Label>
-                        <Form.Control style={{ fontSize: 14 }} onChange={(e) => setDetails(e.target.value)} type="text" placeholder="Enter Details of Marking scheme etc." />
-                        <br />
-                     </div>
-                  </div>
-
-                  <Form.Label>Material Links</Form.Label>
-                  <Form.Control style={{ fontSize: 14 }} className='mb-4' as='textarea' rows={8} onChange={(e) => setInput(e.target.value)}
-                     placeholder={'Add links in each line \n ********example*******\n <Title>,<URL>\n <Title>,<URL>\n <Title>,<URL>\n  ...\n '} />
-
-               </Modal.Body>
-               <Modal.Footer>
-                  <div className={text === "An error occured!" ? "text-danger" : null} >{text}</div>
-                  <Button size='sm' variant="secondary" onClick={handleClose}>
-                     Close
-                  </Button>
-                  <Button size='sm' variant="primary" type='submit' onClick={handleSubmit} disabled={text === "Saving..."}>
-                     Save
-                  </Button>
-               </Modal.Footer>
-            </Form>
-
-         </Modal>
+         <Popup type={'form'} show={show} handleClose={handleClose} handleSubmit={handleSubmit} data={[
+            { label: 'Course Code', setter: setCourseCode, type: 'text', placeholder: 'e.g. EE 204', span: 6, required: true },
+            { label: 'Course Name', setter: setCourseName, type: 'text', placeholder: 'e.g. Analog Circuits', span: 6, required: true },
+            { label: 'L-T-P', setter: setLTP, type: 'text', placeholder: 'e.g. 3-1-0', span: 6, required: false },
+            { label: 'Professor', setter: setProf, type: 'text', placeholder: 'Enter professor name...', span: 6, required: false },
+            { label: 'Credit', setter: setCredit, type: 'number', placeholder: 'Enter credit', span: 6, required: false },
+            { label: 'Details', setter: setDetails, type: 'text', placeholder: 'Enter Details of Marking scheme etc.', span: 6, required: false },
+            { label: 'Material Links', setter: setInput, type: 'textarea', placeholder: 'Add links in each line as follows: \n <Title>,<URL>\n <Title>,<URL>\n <Title>,<URL>\n  ...\n ', span: 12, required: false },
+         ]} errorText={text === "Saving..." || text === '' ? "" : text} progressText={text === "Saving..." ? text : ''} buttonText={'Save'} />
       </>
    )
 }

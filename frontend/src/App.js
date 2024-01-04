@@ -4,6 +4,10 @@ import { useEffect } from 'react';
 import Dashboard from './components/Dashboard';
 import Home from './components/Home';
 import { fetchBranches } from './api';
+import Feedback from './components/Feedback';
+import { Route, Routes } from 'react-router-dom';
+import Footer from './components/Footer';
+import Forum from './components/Forum';
 
 const App = () => {
 
@@ -21,15 +25,13 @@ const App = () => {
 
    return (<>
       <Navbar branches={branches} setBranchId={setBranchId} branchId={branchId} />
-      {
-         branchId === "" ? <Home /> :
-            <Dashboard branchId={branchId} />
-      }
-      <div className='px-4 d-flex justify-content-between py-2 w-100 bg-dark text-secondary' style={{ fontSize: 12, position: 'fixed', bottom: 0, zIndex: 1 }}>
-         <span className='p' style={{ fontSize: 12 }} >Developed by: Suman Jaiswal</span>
-         <span className='p' style={{ fontSize: 12 }}>Academics IITI &copy; 2022</span>
-      </div>
-
+      <Feedback />
+      <Routes>
+         <Route path="/" element={branchId === "" ? <Home /> :
+            <Dashboard branchId={branchId} />} />
+         <Route path="/feedback" element={<Forum />} />
+      </Routes>
+      <Footer />
    </>
 
    )
