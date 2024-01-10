@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react'
 import AddSlot from './AddSlot'
 import DeleteSlot from './DeleteSlot'
 import { colors } from './styles'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDotCircle } from '@fortawesome/free-solid-svg-icons'
+import { renderDays } from './formats'
 
 export default function Block({ slot, courses, time, day, type, text }) {
 
    const [show, setShow] = useState(false)
+   const [currentDay, setDay] = useState(null)
    const [course, setCourse] = useState({
       code: "",
       id: ""
@@ -15,13 +19,18 @@ export default function Block({ slot, courses, time, day, type, text }) {
       if (slot && slot[0])
          setCourse(courses.filter(x => x.id === slot[0].courseId)[0])
 
+      const date = new Date()
+      setDay(date.getDay())
    }, [slot, courses])
 
    if (type === 'text') return <div className='d-flex justify-content-center align-items-center' style={{
       width: 80,
       height: 60,
       fontSize: 12,
-   }}>{text}
+   }}>
+      {renderDays[currentDay - 1] === text && currentDay < 7 &&
+         <FontAwesomeIcon className='me-2 text-primary' icon={faDotCircle} />}
+      {text}
    </div>
 
    return (

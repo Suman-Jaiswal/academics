@@ -1,14 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useEffect } from 'react';
 import { Form } from 'react-bootstrap'
 import { MyContext } from '../contexts/MyContext'
 import AddBranch from './AddBranch';
+import { months } from './formats';
 
 export default function Navbar({ branches, setBranchId, branchId }) {
 
    const { dispatch } = useContext(MyContext)
+   const [dateTime, setDateTime] = useState(null)
 
    useEffect(() => {
+
+      setDateTime(new Date().getDate().toString() + " " + (months[new Date().getMonth()]) + ", " + new Date().getFullYear().toString())
+
       const id = localStorage.getItem('branchId');
       if (!id) return
       if (id.length > 0) {
@@ -46,6 +51,7 @@ export default function Navbar({ branches, setBranchId, branchId }) {
             <div className='col-md-6 px-4 d-flex justify-content-center justify-content-md-start align-items-center my-1' >
                <img src="icon.png" alt="" style={{ filter: "invert(1)" }} width={40} height={40} />
                <div className="h5 m-0 ms-1">Academics</div>
+               <div className='text-secondary ms-2'>({dateTime})</div>
             </div>
             <div className='col-md-6 px-4 mx-auto d-flex justify-content-center justify-content-md-end align-items-center my-2' >
                <div className='me-2 '>  <AddBranch /></div>
