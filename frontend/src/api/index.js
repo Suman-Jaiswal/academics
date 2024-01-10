@@ -45,8 +45,18 @@ export const addBranch = async (doc) => {
     return { ...doc, id: docRef.id };
 }
 
-export const deleteBranch = async (id) => {
-    await deleteDoc(doc(firestore, "branches", id));
+export const deleteBranch = async (branchId) => {
+    const querySnapshot = await getDocs(query(collection(firestore, "courses"), where("branchId", "==", branchId)));
+    querySnapshot.forEach((obj) => {
+        deleteSlotsByCourseId(obj.id).then(() => console.log("deleted slots")).catch(e => console.log(e));
+        deleteLinksByParentId(obj.id).then(() => console.log("deleted links")).catch(e => console.log(e));
+        deleteDoc(doc(firestore, "courses", obj.id));
+    });
+    //  delete branch by where branchid matches
+    const querySnapshot2 = await getDocs(query(collection(firestore, "branches"), where("branchId", "==", branchId)));
+    querySnapshot2.forEach((obj) => {
+        deleteDoc(doc(firestore, "branches", obj.id));
+    });
 }
 
 export const fetchSlots = async (branchId) => {
@@ -99,9 +109,9 @@ export const addCourse = async (doc) => {
     return { ...doc, id: docRef.id };
 }
 
-export const editCourse = async (id, doc) => {
-    await setDoc(doc(firestore, "courses", id), doc);
-    return { ...doc, id };
+export const editCourse = async (id, obj) => {
+    await setDoc(doc(firestore, "courses", id), obj);
+    return { ...obj, id };
 }
 
 export const fetchLinks = async (branchId) => {

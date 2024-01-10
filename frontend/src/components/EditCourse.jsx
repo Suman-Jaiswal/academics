@@ -13,7 +13,6 @@ export default function EditCourse({ course }) {
     const [ltp, setLTP] = useState(course.ltp);
     const [details, setDetails] = useState(course.details);
     const [prof, setProf] = useState(course.prof);
-    const [credit, setCredit] = useState(course.credit);
     const [text, setText] = useState('');
     const { dispatch } = useContext(MyContext)
 
@@ -26,7 +25,7 @@ export default function EditCourse({ course }) {
         setText('Saving...')
         e.preventDefault()
         const doc = {
-            code, name, ltp, prof, credit, details
+            code, name, ltp, prof, details
         }
         editCourse(course.id, doc)
             .then(res => {
@@ -34,7 +33,7 @@ export default function EditCourse({ course }) {
                 dispatch({ type: "EDIT_COURSE", payload: { id: course.id, data: { ...res } } })
                 setText("")
             })
-            .catch(e => setText('An error occured!'))
+            .catch(e => setText('An error occured!' + e))
     }
 
     return (
@@ -61,7 +60,7 @@ export default function EditCourse({ course }) {
 
                         <div className="row">
                             <div className="col-md-6">
-                                <Form.Label>L-T-P</Form.Label>
+                                <Form.Label>L-T-P-C</Form.Label>
                                 <Form.Control style={{ fontSize: 14 }} onChange={(e) => setLTP(e.target.value)} defaultValue={course.ltp} type="text" placeholder="e.g. 3-1-0" />
                                 <br />
                             </div>
@@ -73,12 +72,12 @@ export default function EditCourse({ course }) {
                         </div>
 
                         <div className="row">
-                            <div className="col-md-6">
+                            {/* <div className="col-md-6">
                                 <Form.Label>Credit</Form.Label>
                                 <Form.Control style={{ fontSize: 14 }} onChange={(e) => setCredit(e.target.value)} defaultValue={course.credit} type="number" placeholder="Enter credit" />
                                 <br />
-                            </div>
-                            <div className="col-md-6">
+                            </div> */}
+                            <div className="col-md-12">
                                 <Form.Label>Details</Form.Label>
                                 <Form.Control style={{ fontSize: 14 }} onChange={(e) => setDetails(e.target.value)} defaultValue={course.details} type="text" placeholder="Enter Details of Marking scheme etc." />
                                 <br />

@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Block from './Block'
 import { days, renderDays, timings } from './formats'
+import { MyContext } from '../contexts/MyContext'
 
-export default function Schedule({ courses, slots }) {
+export default function Schedule() {
+
+   const { state } = useContext(MyContext)
+   const { slots } = state
+
    return (
       <div className='schedule-wrapper'
          style={{
@@ -19,24 +24,21 @@ export default function Schedule({ courses, slots }) {
             }}>
                <Block type='text' text={'Schedule'} />
                {
-                  days.map((day, i) => <Block type='text' text={renderDays[i]} />)
+                  days.map((day, i) => <Block key={day} type='text' text={renderDays[i]} />)
                }
             </div>
             <div style={{ width: 'auto', overflowX: 'auto', display: 'flex' }} >
                {
                   timings.map((time, i) =>
-                     <div style={{ width: 80, display: 'flex', flexDirection: 'column', paddingBottom: 5 }}>
+                     <div key={i} style={{ width: 80, display: 'flex', flexDirection: 'column', paddingBottom: 5 }}>
                         <div className="bg-dark">  <Block type={'text'} text={time} /></div>
-
                         {
                            days.map((day, i) =>
                               <div key={i} ><Block
-                                 courses={courses}
                                  slot={slots.filter(s => s.startTime.toString() === time && s.day === day)}
                                  day={day}
                                  time={time}
-                              />
-                              </div>
+                              /> </div>
                            )
                         }
                      </div>

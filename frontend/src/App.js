@@ -16,19 +16,21 @@ const App = () => {
 
    useEffect(() => {
       fetchBranches().then((res) => setBranches(res));
-      const bId = localStorage.getItem("branchId");
-      if (bId)
-         setBranchId(bId);
    }, [])
 
-   console.log(branchId);
-
    return (<>
-      <Navbar branches={branches} setBranchId={setBranchId} branchId={branchId} />
+
       <Feedback />
       <Routes>
-         <Route path="/" element={branchId === "" ? <Home /> :
-            <Dashboard branchId={branchId} />} />
+         <Route path="/"
+            element={<>
+               <Navbar branches={branches} setBranchId={setBranchId} branchId={branchId} setBranches={setBranches} /><Home />
+            </>} />
+         <Route path="/:branchId"
+            element={
+               <>
+                  <Navbar branches={branches} setBranchId={setBranchId} branchId={branchId} setBranches={setBranches} /><Dashboard />
+               </>} />
          <Route path="/feedback" element={<Forum />} />
       </Routes>
       <Footer />

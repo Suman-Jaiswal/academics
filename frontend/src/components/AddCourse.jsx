@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Form, Modal } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import { addCourse, addLinks } from '../api';
 import { MyContext } from '../contexts/MyContext';
 import Popup from './Popup';
@@ -12,7 +12,6 @@ export default function AddCourse() {
    const [ltp, setLTP] = useState("");
    const [prof, setProf] = useState("");
    const [details, setDetails] = useState("");
-   const [credit, setCredit] = useState(null);
    const [text, setText] = useState('');
    const { state, dispatch } = useContext(MyContext)
    const { branchId } = state.branch
@@ -25,7 +24,6 @@ export default function AddCourse() {
    };
 
    useEffect(() => {
-
       const raw = input.split('\n')
       const array = [...raw]
       const rawLinks = []
@@ -42,7 +40,7 @@ export default function AddCourse() {
       setText('Saving...')
       e.preventDefault()
       const doc = {
-         code, name, ltp, prof, credit, details, branchId
+         code, name, ltp, prof, details, branchId
       }
       addCourse(doc)
          .then(res => {
@@ -73,10 +71,9 @@ export default function AddCourse() {
          <Popup type={'form'} show={show} handleClose={handleClose} handleSubmit={handleSubmit} data={[
             { label: 'Course Code', setter: setCourseCode, type: 'text', placeholder: 'e.g. EE 204', span: 6, required: true },
             { label: 'Course Name', setter: setCourseName, type: 'text', placeholder: 'e.g. Analog Circuits', span: 6, required: true },
-            { label: 'L-T-P', setter: setLTP, type: 'text', placeholder: 'e.g. 3-1-0', span: 6, required: false },
+            { label: 'L-T-P-C', setter: setLTP, type: 'text', placeholder: 'e.g. 3-1-0-3', span: 6, required: false },
             { label: 'Professor', setter: setProf, type: 'text', placeholder: 'Enter professor name...', span: 6, required: false },
-            { label: 'Credit', setter: setCredit, type: 'number', placeholder: 'Enter credit', span: 6, required: false },
-            { label: 'Details', setter: setDetails, type: 'text', placeholder: 'Enter Details of Marking scheme etc.', span: 6, required: false },
+            { label: 'Details', setter: setDetails, type: 'text', placeholder: 'Enter Details of Marking scheme etc.', span: 12, required: false },
             { label: 'Material Links', setter: setInput, type: 'textarea', placeholder: 'Add links in each line as follows: \n <Title>,<URL>\n <Title>,<URL>\n <Title>,<URL>\n  ...\n ', span: 12, required: false },
          ]} errorText={text === "Saving..." || text === '' ? "" : text} progressText={text === "Saving..." ? text : ''} buttonText={'Save'} />
       </>

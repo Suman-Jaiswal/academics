@@ -6,11 +6,14 @@ import Schedule from './Schedule'
 import Courses from './Courses'
 import OtherLinks from './OtherLinks'
 import { colors } from './styles'
+import { useParams } from 'react-router-dom'
 
-export default function Dashboard({ branchId }) {
+export default function Dashboard() {
 
    const { state, dispatch } = useContext(MyContext)
-   const { courses, slots, links, branch } = state
+   const { courses, links, branch } = state
+
+   const { branchId } = useParams()
 
 
    useEffect(() => {
@@ -24,10 +27,10 @@ export default function Dashboard({ branchId }) {
       <>
          <div className='row'>
             <div className="col-12 col-md-8 p-3 ps-4" >
-               <Schedule courses={courses} slots={slots} />
+               <Schedule />
             </div>
 
-            <div className="col-12 col-md-4 p-3 ps-4 ps-md-0">
+            <div className="col-12 col-md-4 p-3 px-4 ps-md-0">
                <Courses courses={courses} links={links} />
             </div>
          </div>

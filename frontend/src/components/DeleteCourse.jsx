@@ -2,7 +2,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useContext, useState } from 'react'
 import { Button, Modal } from 'react-bootstrap';
-import { deleteCourseById, deleteLinksByParentId, deleteSlotsByCourseId } from '../api';
+import { deleteCourseById } from '../api';
 import { MyContext } from '../contexts/MyContext';
 
 export default function DeleteCourse({ id }) {
@@ -25,18 +25,8 @@ export default function DeleteCourse({ id }) {
                 setShow(false)
                 setText("")
                 dispatch({ type: "DELETE_COURSE", payload: id })
+                dispatch({ type: "DELETE_SLOTS_BY_COURSEID", payload: id })
 
-                deleteSlotsByCourseId(id)
-                    .then(res => {
-                        dispatch({ type: "DELETE_SLOTS_BY_COURSEID", payload: id })
-                    })
-                    .catch(e => console.log('An error occured!'))
-
-                deleteLinksByParentId(id)
-                    .then(res => {
-                        console.log('deleted')
-                    })
-                    .catch(e => console.log('An error occured!'))
             })
             .catch(e => setText('An error occured!'))
     }

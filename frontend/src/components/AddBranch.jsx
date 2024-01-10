@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
-import { addBranch } from '../api';
+import { addBranch, fetchBranches } from '../api';
+import { useNavigate } from 'react-router-dom';
 
-export default function AddBranch() {
+export default function AddBranch({ setBranches }) {
+
+   const navigate = useNavigate()
 
    const programs = [
       "BTech",
@@ -38,6 +41,11 @@ export default function AddBranch() {
          .then(res => {
             setShow(false)
             setText("")
+            fetchBranches().then((res) => {
+               setBranches(res);
+               navigate('/' + branchId)
+               localStorage.setItem('branchId', branchId)
+            }).catch(e => setText('An error occured!'))
          })
          .catch(e => setText('An error occured!'))
    }

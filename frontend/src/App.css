@@ -1,15 +1,16 @@
-.env{
+.env {
     transform-origin: 50% 0;
 }
-.env-open{
+
+.env-open {
     transition: all ease-in-out .2s;
     transform: scale3d(1, 1, 1) !important;
-    position: static;
+    position: relative;
+    top: -10px;
 }
-.env-close{
+
+.env-close {
     transform: scale3d(0, 0, 0) !important;
     position: absolute;
     opacity: 0;
 }
-
-

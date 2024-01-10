@@ -1,15 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import AddSlot from './AddSlot'
 import DeleteSlot from './DeleteSlot'
 import { colors } from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDotCircle } from '@fortawesome/free-solid-svg-icons'
 import { renderDays } from './formats'
+import { MyContext } from '../contexts/MyContext'
 
-export default function Block({ slot, courses, time, day, type, text }) {
+export default function Block({ slot, time, day, type, text }) {
 
    const [show, setShow] = useState(false)
    const [currentDay, setDay] = useState(null)
+
+   const { state } = useContext(MyContext)
+   const { courses } = state
+
    const [course, setCourse] = useState({
       code: "",
       id: ""
@@ -37,7 +42,7 @@ export default function Block({ slot, courses, time, day, type, text }) {
       <>
          <div className='block rounded'
             style={{
-               width: 80,
+               width: slot[0]?.slotType === 'P' ? parseInt(course?.ltp?.substring(4, 5)) * 80 || 80 : 80,
                height: 60,
                paddingTop: 5,
                paddingLeft: 5,
@@ -65,7 +70,7 @@ export default function Block({ slot, courses, time, day, type, text }) {
                         }}>
                         <DeleteSlot id={slot[0].id ? slot[0].id : null} />
                      </div>
-                     <div className="p text-center" style={{ fontSize: 14 }}> <b>{course?.code}</b></div>
+                     <div className="p text-center" style={{ fontSize: 12 }}> <b>{course?.code}</b></div>
                   </div>
                   :
                   <AddSlot courses={courses} day={day} time={time} />

@@ -1,4 +1,4 @@
-import { faCaretDown, faCaretUp, faExternalLink } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp, faExternalLink } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react'
 import AddCourse from './AddCourse'
@@ -24,55 +24,65 @@ export default function Courses({ links, courses }) {
    }
 
    return (
-      <div className='course-wrapper p-3'
+      <div className='course-wrapper'
          style={{
             border: "1px solid #444",
             borderRadius: 10,
             overflowY: "auto",
-            height: '100%',
-            minHeight: 'fit-content'
+            height: 425,
          }}>
-         <div className="header d-flex justify-content-between">
-            <div className="h6 my-auto text-center">Courses</div>
-            <AddCourse />
+         <div className='bg-dark p-3' style={{
+            borderBottom: "1px solid #444",
+            position: 'sticky',
+            top: 0,
+         }}>
+            <div className="d-flex justify-content-between bg-dark">
+               <div className="h6 my-auto text-center">Courses</div>
+               <AddCourse />
+            </div>
          </div>
 
-         <ul className=' mt-3 p-0' style={{}} >
+         <ul className='px-2' style={{}} >
             {
                courses && courses.length > 0 ? courses.map((c, i) => c.code !== "" && <div key={i}>
                   <li
                      role={'button'}
-                     className='text-light bg-dark mt-2 py-2 rounded row m-0 align-items-center'
-                     onClick={() => handleClick(c.code)}
+                     className='text-light d-flex justify-content-between bg-dark mt-2 rounded m-0 align-items-center'
+                     style={{
+                        fontSize: 12,
+                     }}
                   >
-                     <div style={{ fontSize: 12 }} className="col-11"><b>{c.code}: </b>{c.name}</div>
-
-                     <div className='col-1'>
-                        <FontAwesomeIcon role={'button'} icon={show.includes(c.code) ? faCaretUp : faCaretDown} />
+                     <div className='py-2 px-3' style={{ width: '90%', }}>
+                        <div className='d-flex justify-content-between'>
+                           <div style={{ width: '95%' }}>
+                              <b>{c.code}: </b>{c.name}
+                           </div>
+                           <div style={{ width: 50 }}>
+                              <span><EditCourse course={c} /></span>
+                              <span><DeleteCourse id={c.id} /></span>
+                           </div>
+                        </div>
+                        <div className="d-flex mt-1 justify-content-between align-items-center text-secondary">
+                           {
+                              c.prof &&
+                              <div className="p">{c.prof}</div>
+                           }
+                           {
+                              c.ltp &&
+                              <div className="p">L-T-P-C: {c.ltp}</div>
+                           }
+                        </div>
+                     </div>
+                     <div onClick={() => handleClick(c.code)} className='px-3 text-secondary' style={{ borderLeft: '1px solid #444' }}>
+                        <span><FontAwesomeIcon role={'button'} icon={show.includes(c.code) ? faAngleUp : faAngleDown} /></span>
                      </div>
 
                   </li>
 
                   <div className={`${show.includes(c.code) ? "env-open" : "env-close"} env bg-dark`}>
                      <div className='px-3' style={{ fontSize: 12 }}>
-                        <div className="d-flex justify-content-between">
-                           <span className="p"> {c.name}</span>
-                           <div>
-                              <span><EditCourse course={c} /></span>
-                              <span><DeleteCourse id={c.id} /></span>
-                           </div>
-                        </div>
-                        {
-                           c.prof &&
-                           <div className="p mt-1">Prof:  {c.prof} </div>
-                        }
-                        <hr />
 
-                        <div className="d-flex justify-content-between mt-1">
-                           {
-                              c.ltp &&
-                              <div className="p">L-T-P: {c.ltp}</div>
-                           }
+                        <div className="d-flex justify-content-between">
                            {
                               c.credit &&
                               <div className="p">Credit: {c.credit}</div>
@@ -83,7 +93,7 @@ export default function Courses({ links, courses }) {
                            <div className="p mt-1"> Details: {c.details}</div>
                         }
 
-                        <hr />
+                        <hr className='mt-2' />
 
                         <div className="p text-light">Useful Links <AddLinks parentId={c.id} /></div>
                         {
@@ -99,7 +109,7 @@ export default function Courses({ links, courses }) {
                      </div>
                   </div>
                </div>
-               ) : <div className='text-secondary text-center'>No Courses!</div>
+               ) : <div className='text-secondary mt-4 text-center'>No Courses!</div>
             }
          </ul>
       </div>
