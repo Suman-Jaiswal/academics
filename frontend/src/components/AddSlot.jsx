@@ -4,11 +4,12 @@ import React, { useContext, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import { addSlot } from '../api';
 import { MyContext } from '../contexts/MyContext';
+import { useParams } from 'react-router-dom';
 
 export default function AddSlot({ day, time, courses }) {
 
-   const { state, dispatch } = useContext(MyContext)
-   const { branchId } = state.branch
+   const { dispatch } = useContext(MyContext)
+   const { branchId } = useParams()
    const [show, setShow] = useState(false);
    const [text, setText] = useState('');
    const [courseId, setCourseId] = useState('');

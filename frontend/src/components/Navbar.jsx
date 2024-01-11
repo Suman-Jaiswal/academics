@@ -32,16 +32,17 @@ export default function Navbar({ branches, setBranches }) {
             <div className='col-md-6 px-4 mx-auto d-flex justify-content-center justify-content-md-end align-items-center my-2' >
                <div className='me-2 '><AddBranch setBranches={setBranches} /></div>
                {branchId !== '' && <div className='me-2 '><DeleteBranch setBranches={setBranches} /></div>}
-               <Form.Select size='sm' style={{ width: 200 }} className='bg-dark' value={branchId} onChange={(e) => selectBranch(e)} aria-label="Default select example">
+               <Form.Select size='sm' style={{ width: 200, fontSize: 12 }} className='bg-dark' value={branchId}
+                  onChange={(e) => selectBranch(e)} aria-label="Default select example">
                   <option value="" >Select Branch</option>
                   {
                      branches.map((b, i) =>
-                        <option key={i} value={b.branchId}>{
-                           b.name + " - (" +
-                           (b.semester === '1' ? "1st)" :
-                              b.semester === '2' ? "2nd)" :
+                        <option key={i} style={{ fontSize: 12 }} value={b.branchId}>{
+                           b.name + " - (" + b.program + ", " +
+                           (b.semester === '1' ? "1st" :
+                              b.semester === '2' ? "2nd" :
                                  b.semester === '3' ? "3rd)" :
-                                    b.semester + "th)")
+                                    b.semester + "th") + ' Sem)'
 
                         } </option>
                      )

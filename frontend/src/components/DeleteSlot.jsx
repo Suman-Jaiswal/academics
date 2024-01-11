@@ -27,7 +27,6 @@ export default function DeleteSlot({ id }) {
                 .then(res => {
                     setShow(false)
                     setText("")
-                    console.log(res)
                     dispatch({ type: "DELETE_SLOT", payload: id })
                 })
                 .catch(e => setText('An error occured!'))

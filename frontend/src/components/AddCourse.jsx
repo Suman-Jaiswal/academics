@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap'
 import { addCourse, addLinks } from '../api';
 import { MyContext } from '../contexts/MyContext';
 import Popup from './Popup';
+import { useParams } from 'react-router-dom';
 
 export default function AddCourse() {
 
@@ -13,10 +14,11 @@ export default function AddCourse() {
    const [prof, setProf] = useState("");
    const [details, setDetails] = useState("");
    const [text, setText] = useState('');
-   const { state, dispatch } = useContext(MyContext)
-   const { branchId } = state.branch
+   const { dispatch } = useContext(MyContext)
    const [links, setLinks] = useState([]);
    const [input, setInput] = useState('')
+
+   const { branchId } = useParams()
 
    const handleClose = () => setShow(false);
    const handleShow = () => {
@@ -51,7 +53,6 @@ export default function AddCourse() {
                const element = raw[i];
                element.parentId = res.id
             }
-            console.log(raw)
             dispatch({ type: "ADD_COURSE", payload: res })
             if (input === "") {
                return

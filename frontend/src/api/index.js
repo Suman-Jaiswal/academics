@@ -131,8 +131,6 @@ export const addLinks = async (arr) => {
         const docRef = await addDoc(collection(firestore, "links"), element);
         docs.push({ ...element, id: docRef.id });
     }
-
-    console.log(docs);
     return docs;
 }
 

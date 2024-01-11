@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { addLinks } from '../api';
 import { MyContext } from '../contexts/MyContext';
+import { useParams } from 'react-router-dom';
 
 export default function AddLinks({ parentId }) {
 
@@ -11,11 +12,33 @@ export default function AddLinks({ parentId }) {
     const [show, setShow] = useState(false);
     const [text, setText] = useState('');
     const [input, setInput] = useState('')
-    const { state, dispatch } = useContext(MyContext)
-    const { branchId } = state.branch
+    const { dispatch } = useContext(MyContext)
+    const { branchId } = useParams()
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const validateLink = (url) => {
+        var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+            '(\\?[;&amp;a-z\\d%_.~+=-]*)?' + // query string
+            '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+
+        return !!pattern.test(url);
+    }
+
+    const checkLinks = () => {
+        for (let i = 0; i < links.length; i++) {
+            const element = links[i];
+            if (!validateLink(element.url)) {
+                setText('Invalid URL!')
+                return false
+            }
+        }
+        return true
+    }
 
     useEffect(() => {
 
@@ -38,13 +61,14 @@ export default function AddLinks({ parentId }) {
             setText('Please select course!')
             return
         }
-        addLinks(links)
-            .then(res => {
-                setShow(false)
-                setText("")
-                dispatch({ type: "ADD_LINKS", payload: res })
-            })
-            .catch(e => setText('An error occured!'))
+        checkLinks() &&
+            addLinks(links)
+                .then(res => {
+                    setShow(false)
+                    setText("")
+                    dispatch({ type: "ADD_LINKS", payload: res })
+                })
+                .catch(e => setText('An error occured!'))
     }
 
     return (
