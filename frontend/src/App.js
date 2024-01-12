@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import Dashboard from './components/Dashboard';
 import Home from './components/Home';
 import { fetchBranches } from './api';
-import Feedback from './components/Feedback';
 import { Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
 import Forum from './components/Forum';
@@ -19,8 +18,6 @@ const App = () => {
    }, [])
 
    return (<>
-
-      <Feedback />
       <Routes>
          <Route path="/"
             element={<>

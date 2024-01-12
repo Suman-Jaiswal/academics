@@ -23,7 +23,7 @@ export default function Navbar({ branches, setBranches }) {
 
    return (
       <>
-         <div className="row py-2 bg-dark" >
+         <div className="row m-0 py-2 bg-dark" >
             <div className='col-md-6 px-4 d-flex justify-content-center justify-content-md-start align-items-center my-1' >
                <img src="icon.png" alt="" style={{ filter: "invert(1)" }} width={40} height={40} />
                <div className="h5 m-0 ms-1">Academics</div>

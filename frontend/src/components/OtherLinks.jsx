@@ -6,13 +6,12 @@ import DeleteLink from './DeleteLink'
 
 export default function OtherLinks({ links }) {
    return (
-      <div className='mx-4 py-2' style={{
+      <div className='py-2' style={{
          borderTop: "1px solid #444",
-
       }} >
-         <div className="p-1 mb-1 ps-0"> <span className='h6'>Other Links</span> <AddLinks parentId="universal" /></div>
+         <div className=" mb-1 ps-3"> <span className='h6'>Other Links</span> <AddLinks parentId="universal" /></div>
 
-         <ul className='row p-0'>
+         <div className='row m-0 ps-2 mt-2 mb-5'>
             {
                links.filter(l => l.parentId === "universal").length > 0 ? links.filter(l => l.parentId === "universal").map(link =>
                   <li style={{
@@ -28,7 +27,7 @@ export default function OtherLinks({ links }) {
                   </li>
                ) : <div className="text-secondary text-center mb-3">No Links!</div>
             }
-         </ul>
+         </div>
       </div>
    )
 }

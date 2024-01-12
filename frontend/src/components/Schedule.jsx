@@ -12,14 +12,11 @@ export default function Schedule() {
       <div className='schedule-wrapper'
          style={{
             border: "1px solid #444",
-            borderRadius: 10,
          }}
       >
          <div className="d-flex">
             <div className='bg-dark' style={{
-               width: 81, display: 'flex', flexDirection: 'column', borderRight: '1px solid #444',
-               borderTopLeftRadius: 10,
-               borderBottomLeftRadius: 10
+               width: 81, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRight: '1px solid #444',
 
             }}>
                <Block type='text' text={'Schedule'} />

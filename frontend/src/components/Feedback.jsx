@@ -30,7 +30,7 @@ const Feedback = () => {
 
     return (
         <div>
-            <button className='btn px-2 py-1 btn-dark text-secondary' onClick={handleOpenModal} style={{ position: 'fixed', bottom: 45, right: 0, fontSize: 10, borderTopRightRadius: 0, textDecoration: 'underline' }}>
+            <button className='btn btn-dark text-secondary' onClick={handleOpenModal} style={{ fontSize: 10, borderTopRightRadius: 0, textDecoration: 'underline' }}>
                 <FontAwesomeIcon className='me-1' icon={faEnvelope} /> Give Feedback
             </button>
             <Popup

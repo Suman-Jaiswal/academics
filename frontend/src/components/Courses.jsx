@@ -24,12 +24,12 @@ export default function Courses({ links, courses }) {
    }
 
    return (
-      <div className='course-wrapper'
+      <div className='course-wrapper mt-3 mt-md-0'
          style={{
             border: "1px solid #444",
-            borderRadius: 10,
             overflowY: "auto",
-            height: 425,
+            height: 426,
+            borderLeft: 'none',
          }}>
          <div className='bg-dark p-3' style={{
             borderBottom: "1px solid #444",

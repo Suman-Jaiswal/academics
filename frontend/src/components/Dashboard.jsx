@@ -25,16 +25,16 @@ export default function Dashboard() {
 
    return (
       <>
-         <div className='row'>
-            <div className="col-12 col-md-8 p-3 ps-4" >
+         <div className='row m-0'>
+            <div className="col-12 col-md-8 p-0" >
                <Schedule />
             </div>
 
-            <div className="col-12 col-md-4 p-3 px-4 ps-md-0">
+            <div className="col-12 col-md-4 p-0">
                <Courses courses={courses} links={links} />
             </div>
          </div>
-         <div className='d-flex align-items-center justify-content-start ps-2 mb-3' >
+         <div className='d-flex align-items-center justify-content-start ps-1 my-3' >
             <div className="mx-3 d-flex align-items-center">
                <div style={{
                   width: 10, height: 10, backgroundColor: colors.lecColor,
