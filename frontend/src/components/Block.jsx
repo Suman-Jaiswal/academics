@@ -44,8 +44,8 @@ export default function Block({ slot, time, day, type, text }) {
             style={{
                width: slot[0]?.slotType === 'P' ? parseInt(course?.ltp?.substring(4, 5)) * 80 || 80 : 80,
                height: 60,
-               paddingTop: 5,
-               paddingLeft: 5,
+               paddingTop: 3,
+               paddingLeft: 3,
             }}
          >{
                slot.length > 0 ?

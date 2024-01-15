@@ -7,6 +7,8 @@ import { MyContext } from '../contexts/MyContext';
 
 export default function EditCourse({ course }) {
 
+    console.log(course);
+
     const [show, setShow] = useState(false);
     const [code, setCourseCode] = useState(course.code);
     const [name, setCourseName] = useState(course.name);
@@ -25,7 +27,7 @@ export default function EditCourse({ course }) {
         setText('Saving...')
         e.preventDefault()
         const doc = {
-            code, name, ltp, prof, details
+            code, name, ltp, prof, details, ...course
         }
         editCourse(course.id, doc)
             .then(res => {

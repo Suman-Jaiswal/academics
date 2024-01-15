@@ -26,11 +26,11 @@ export default function Dashboard() {
    return (
       <>
          <div className='row m-0'>
-            <div className="col-12 col-md-8 p-0" >
+            <div className="col-12 col-md-9 p-0" >
                <Schedule />
             </div>
 
-            <div className="col-12 col-md-4 p-0">
+            <div className="col-12 col-md-3 p-0">
                <Courses courses={courses} links={links} />
             </div>
          </div>
