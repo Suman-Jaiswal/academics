@@ -1,38 +1,34 @@
+import { version } from "../constants/index.js";
 import { firestore } from "../firebase";
 import { addDoc, collection, deleteDoc, doc, getDocs, query, setDoc, where } from "firebase/firestore";
-
-// // import axios from "axios";
-
-// const api = process.env.REACT_APP_API
-
-// // branch api
-// export const fetchBranches = () => axios.get(api + '/branches');
-// export const addBranch = (doc) => axios.post(api + '/branches', doc);
-// export const deleteBranch = (id) => axios.delete(api + '/branches/' + id);
-
-// // slot api
-// export const fetchSlots = (branchId) => axios.get(api + '/slots', { params: { branchId } })
-// export const addSlot = (doc) => axios.post(api + '/slots', doc)
-// export const deleteSlotsByCourseId = (courseId) => axios.post(api + '/slots/delete', { courseId })
-// export const deleteSlotById = (id) => axios.delete(api + '/slots/' + id)
-
-// //course api
-// export const fetchCourses = (branchId) => axios.get(api + '/courses', { params: { branchId } })
-// export const fetchCourseById = (id) => axios.get(api + '/courses/' + id)
-// export const deleteCourseById = (id) => axios.delete(api + '/courses/' + id)
-// export const addCourse = (doc) => axios.post(api + '/courses', doc)
-// export const editCourse = (id, doc) => axios.post(api + '/courses/' + id, doc)
-
-// // link api
-// export const fetchLinks = (branchId) => axios.get(api + '/links', { params: { branchId } })
-// export const addLinks = (arr) => axios.post(api + '/links', { arr })
-// export const deleteLinkById = (id) => axios.delete(api + '/links/' + id)
-// export const deleteLinksByParentId = (parentId) => axios.post(api + '/links/delete', { parentId })
+import { UserData } from "../interfaces";
 
 
+export const fetchUserData = async (uid) => {
+    const docRef = await getDocs(query(collection(firestore, version + "-users"), where("uid", "==", uid)));
+    let docs = [];
+    docRef.forEach((doc) => {
+        docs.push({ ...doc.data(), id: doc.id });
+    });
+    if (docs.length === 0) {
+        const docRef = await addDoc(collection(firestore, version + "-users"), new UserData(uid, []).toDoc());
+        docs.push({ uid, id: docRef.id });
+    }
+    return docs;
+}
+
+export const updateUserData = async (obj) => {
+    const docRef = await getDocs(query(collection(firestore, version + "-users"), where("uid", "==", obj.uid)));
+    let docs = [];
+    docRef.forEach((doc) => {
+        docs.push({ ...doc.data(), id: doc.id });
+    });
+    await setDoc(doc(firestore, version + "-users", docs[0].id), obj);
+    return docs;
+}
 
 export const fetchBranches = async () => {
-    const querySnapshot = await getDocs(query(collection(firestore, "branches")));
+    const querySnapshot = await getDocs(query(collection(firestore, version + "-branches")));
     let docs = [];
     querySnapshot.forEach((doc) => {
         docs.push({ ...doc.data(), id: doc.id });
@@ -41,26 +37,26 @@ export const fetchBranches = async () => {
 }
 
 export const addBranch = async (doc) => {
-    const docRef = await addDoc(collection(firestore, "branches"), doc);
+    const docRef = await addDoc(collection(firestore, version + "-branches"), doc);
     return { ...doc, id: docRef.id };
 }
 
 export const deleteBranch = async (branchId) => {
-    const querySnapshot = await getDocs(query(collection(firestore, "courses"), where("branchId", "==", branchId)));
+    const querySnapshot = await getDocs(query(collection(firestore, version + "-courses"), where("branchId", "==", branchId)));
     querySnapshot.forEach((obj) => {
         deleteSlotsByCourseId(obj.id).then(() => console.log("deleted slots")).catch(e => console.log(e));
         deleteLinksByParentId(obj.id).then(() => console.log("deleted links")).catch(e => console.log(e));
         deleteDoc(doc(firestore, "courses", obj.id));
     });
     //  delete branch by where branchid matches
-    const querySnapshot2 = await getDocs(query(collection(firestore, "branches"), where("branchId", "==", branchId)));
+    const querySnapshot2 = await getDocs(query(collection(firestore, version + "-branches"), where("branchId", "==", branchId)));
     querySnapshot2.forEach((obj) => {
         deleteDoc(doc(firestore, "branches", obj.id));
     });
 }
 
 export const fetchSlots = async (branchId) => {
-    const querySnapshot = await getDocs(query(collection(firestore, "slots"), where("branchId", "==", branchId)));
+    const querySnapshot = await getDocs(query(collection(firestore, version + "-slots"), where("branchId", "==", branchId)));
     let docs = [];
     querySnapshot.forEach((doc) => {
         docs.push({ ...doc.data(), id: doc.id });
@@ -69,12 +65,12 @@ export const fetchSlots = async (branchId) => {
 }
 
 export const addSlot = async (doc) => {
-    const docRef = await addDoc(collection(firestore, "slots"), doc);
+    const docRef = await addDoc(collection(firestore, version + "-slots"), doc);
     return { ...doc, id: docRef.id };
 }
 
 export const deleteSlotsByCourseId = async (courseId) => {
-    const querySnapshot = await getDocs(query(collection(firestore, "slots"), where("courseId", "==", courseId)));
+    const querySnapshot = await getDocs(query(collection(firestore, version + "-slots"), where("courseId", "==", courseId)));
     querySnapshot.forEach((obj) => {
         deleteDoc(doc(firestore, "slots", obj.id));
     });
@@ -84,8 +80,8 @@ export const deleteSlotById = async (id) => {
     await deleteDoc(doc(firestore, "slots", id));
 }
 
-export const fetchCourses = async (branchId) => {
-    const querySnapshot = await getDocs(query(collection(firestore, "courses"), where("branchId", "==", branchId)));
+export const fetchCourses = async () => {
+    const querySnapshot = await getDocs(collection(firestore, version + "-courses"));
     let docs = [];
     querySnapshot.forEach((doc) => {
         docs.push({ ...doc.data(), id: doc.id });
@@ -105,7 +101,7 @@ export const deleteCourseById = async (id) => {
 }
 
 export const addCourse = async (doc) => {
-    const docRef = await addDoc(collection(firestore, "courses"), doc);
+    const docRef = await addDoc(collection(firestore, version + "-courses"), doc);
     return { ...doc, id: docRef.id };
 }
 
@@ -115,7 +111,7 @@ export const editCourse = async (id, obj) => {
 }
 
 export const fetchLinks = async (branchId) => {
-    const querySnapshot = await getDocs(query(collection(firestore, "links"), where("branchId", "==", branchId)));
+    const querySnapshot = await getDocs(query(collection(firestore, version + "-links"), where("branchId", "==", branchId)));
     let docs = [];
     querySnapshot.forEach((doc) => {
         docs.push({ ...doc.data(), id: doc.id });
@@ -128,7 +124,7 @@ export const addLinks = async (arr) => {
 
     for (let index = 0; index < arr.length; index++) {
         const element = arr[index];
-        const docRef = await addDoc(collection(firestore, "links"), element);
+        const docRef = await addDoc(collection(firestore, version + "-links"), element);
         docs.push({ ...element, id: docRef.id });
     }
     return docs;
@@ -139,14 +135,14 @@ export const deleteLinkById = async (id) => {
 }
 
 export const deleteLinksByParentId = async (parentId) => {
-    const querySnapshot = await getDocs(query(collection(firestore, "links"), where("parentId", "==", parentId)));
+    const querySnapshot = await getDocs(query(collection(firestore, version + "-links"), where("parentId", "==", parentId)));
     querySnapshot.forEach((obj) => {
         deleteDoc(doc(firestore, "links", obj.id));
     });
 }
 
 export const fetchAllBranches = async () => {
-    const querySnapshot = await getDocs(query(collection(firestore, "branches")));
+    const querySnapshot = await getDocs(query(collection(firestore, version + "-branches")));
     let docs = [];
     querySnapshot.forEach((doc) => {
         docs.push({ ...doc.data(), id: doc.id });
@@ -155,7 +151,7 @@ export const fetchAllBranches = async () => {
 }
 
 export const fetchAllCourses = async () => {
-    const querySnapshot = await getDocs(query(collection(firestore, "courses")));
+    const querySnapshot = await getDocs(query(collection(firestore, version + "-courses")));
     let docs = [];
     querySnapshot.forEach((doc) => {
         docs.push({ ...doc.data(), id: doc.id });
@@ -164,7 +160,7 @@ export const fetchAllCourses = async () => {
 }
 
 export const fetchAllSlots = async () => {
-    const querySnapshot = await getDocs(query(collection(firestore, "slots")));
+    const querySnapshot = await getDocs(query(collection(firestore, version + "-slots")));
     let docs = [];
     querySnapshot.forEach((doc) => {
         docs.push({ ...doc.data(), id: doc.id });
@@ -173,7 +169,7 @@ export const fetchAllSlots = async () => {
 }
 
 export const fetchAllLinks = async () => {
-    const querySnapshot = await getDocs(query(collection(firestore, "links")));
+    const querySnapshot = await getDocs(query(collection(firestore, version + "-links")));
     let docs = [];
     querySnapshot.forEach((doc) => {
         docs.push({ ...doc.data(), id: doc.id });
@@ -190,12 +186,12 @@ export const fetchAllData = async () => {
 }
 
 export const sendFeedback = async (doc) => {
-    const docRef = await addDoc(collection(firestore, "feedback"), doc);
+    const docRef = await addDoc(collection(firestore, version + "-feedback"), doc);
     return { ...doc, id: docRef.id };
 }
 
 export const fetchFeedback = async () => {
-    const querySnapshot = await getDocs(query(collection(firestore, "feedback")));
+    const querySnapshot = await getDocs(query(collection(firestore, version + "-feedback")));
     let docs = [];
     querySnapshot.forEach((doc) => {
         docs.push({ ...doc.data(), id: doc.id });

@@ -12,6 +12,7 @@ export default function Schedule() {
       <div className='schedule-wrapper'
          style={{
             border: "1px solid #444",
+            borderRight: 'none'
          }}
       >
          <div className="d-flex">

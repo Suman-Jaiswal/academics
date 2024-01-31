@@ -2,6 +2,18 @@ import { createContext, useEffect, useReducer } from "react";
 
 const myReducer = (state, action) => {
     switch (action.type) {
+        //user
+        case 'LOGIN':
+            return {
+                ...state,
+                user: action.payload
+            }
+        case 'LOGOUT':
+            return {
+                ...state,
+                user: null
+            }
+
         //branch
         case 'SET_BRANCH':
             return {
@@ -111,37 +123,15 @@ const myReducer = (state, action) => {
 export const MyContext = createContext()
 
 const initialState = {
+    user: null,
     branch: {
         branchId: "",
         name: "",
         program: ""
     },
-    courses: [
-        {
-            _id: "",
-            code: "",
-            name: "",
-            links: [""],
-            ltp: ""
-        }
-    ],
-    slots: [{
-        _id: "",
-        code: "",
-        name: "",
-        links: [""],
-        ltp: "",
-        startTime: ""
-    }],
-    links: [{
-        parentId: "",
-        title: "",
-        url: "",
-        description: ""
-    }
-    ],
-    loading: false,
-    error: false,
+    courses: [],
+    slots: [],
+    links: [],
 }
 
 function MyContextProvider(props) {
@@ -149,8 +139,8 @@ function MyContextProvider(props) {
     const [state, dispatch] = useReducer(myReducer, initialState);
 
     useEffect(() => {
-        // console.log('courses', state.courses)
-        // console.log('slots', state.slots)
+        console.log('user', state.user)
+        console.log('courses', state.courses)
         // console.log('links', state.links)
     }, [state])
 

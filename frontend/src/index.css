@@ -60,5 +60,9 @@ body {
 }
 
 hr {
-   background-color: #444 !important;
+   background-color: #8b8b8b !important;
+}
+
+.small {
+   font-size: 12px !important;
 }

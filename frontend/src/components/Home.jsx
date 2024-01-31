@@ -1,5 +1,5 @@
 import React from 'react'
-import AddBranch from './AddBranch'
+import LoginBtn from './LoginBtn'
 
 export default function Home() {
    return (
@@ -12,10 +12,9 @@ export default function Home() {
             alignItems: "center",
             justifyContent: "center",
          }}>
-            <div className='display-3'>Welcome to Academics IITI </div>
-            <p className='lead'><i>Please Select or Add a branch to get started!</i></p>
-            <div>
-               <AddBranch />
+            <div className='display-5'>Welcome to Academics IITI </div>
+            <div className='mt-4'>
+               <LoginBtn />
             </div>
          </div>
       </div>
