@@ -42,7 +42,7 @@ export default function Block({ slot, time, day, type, text }) {
       <>
          <div className='block rounded'
             style={{
-               width: slot[0]?.slotType === 'P' ? parseInt(course?.ltp?.substring(4, 5)) * 80 || 80 : 80,
+               width: slot[0]?.type === 'P' ? parseInt(course?.ltp?.substring(4, 5)) * 80 || 80 : 80,
                height: 60,
                paddingTop: 3,
                paddingLeft: 3,
@@ -52,8 +52,8 @@ export default function Block({ slot, time, day, type, text }) {
 
                   <div className='position-relative rounded h-100 d-flex align-items-center justify-content-center'
                      style={{
-                        backgroundColor: `${slot[0].slotType === 'L' ? colors.lecColor :
-                           slot[0].slotType === 'T' ? colors.tutColor :
+                        backgroundColor: `${slot[0].type === 'L' ? colors.lecColor :
+                           slot[0].type === 'T' ? colors.tutColor :
                               colors.pracColor}`,
                      }}
                      onMouseOver={() => setShow(true)}
@@ -70,7 +70,7 @@ export default function Block({ slot, time, day, type, text }) {
                         }}>
                         <DeleteSlot id={slot[0].id ? slot[0].id : null} />
                      </div>
-                     <div className="p text-center" style={{ fontSize: 12 }}> <b>{course?.code}</b></div>
+                     <div className="p text-center" style={{ fontSize: 12 }}> <b>{slot[0].courseCode}</b></div>
                   </div>
                   :
                   <AddSlot courses={courses} day={day} time={time} />

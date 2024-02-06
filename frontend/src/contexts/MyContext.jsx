@@ -23,7 +23,7 @@ const myReducer = (state, action) => {
 
 
         //courses
-        case 'FETCH_COURSES':
+        case 'SET_COURSES':
             return {
                 ...state,
                 courses: [...action.payload],
@@ -59,7 +59,7 @@ const myReducer = (state, action) => {
 
 
         //slots
-        case 'FETCH_SLOTS':
+        case 'SET_SLOTS':
             return {
                 ...state,
                 slots: [...action.payload],
@@ -139,8 +139,9 @@ function MyContextProvider(props) {
     const [state, dispatch] = useReducer(myReducer, initialState);
 
     useEffect(() => {
-        console.log('user', state.user)
+        // console.log('user', state.user)
         console.log('courses', state.courses)
+        // console.log('slots', state.slots)
         // console.log('links', state.links)
     }, [state])
 

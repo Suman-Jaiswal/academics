@@ -7,7 +7,7 @@ import DeleteCourse from './DeleteCourse';
 import DeleteLink from './DeleteLink';
 import EditCourse from './EditCourse';
 import { MyContext } from '../contexts/MyContext';
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { updateUserData } from '../api';
 import { UserData } from '../interfaces';
 
@@ -61,9 +61,9 @@ export default function Courses({ links }) {
 
    useEffect(() => {
       if (user) {
-         setRegisteredCourses(courses.filter(c => c.code !== "" && user.registeredCourses.includes(c.code)))
-         setOtherCourses(courses.filter(c => c.code !== "" && !user.registeredCourses.includes(c.code)))
-         setSearchResult(courses.filter(c => c.code !== "" && !user.registeredCourses.includes(c.code)))
+         setRegisteredCourses(courses.filter(c => c.code !== "" && user.registeredCourses?.includes(c.code)))
+         setOtherCourses(courses.filter(c => c.code !== "" && !user.registeredCourses?.includes(c.code)))
+         setSearchResult(courses.filter(c => c.code !== "" && !user.registeredCourses?.includes(c.code)))
       }
    }, [courses, user])
 
@@ -116,7 +116,7 @@ export default function Courses({ links }) {
                         </div>
                      </div>
                      <div onClick={() => handleClick(c.code)} className='px-3 text-secondary' style={{ borderLeft: '1px solid #444' }}>
-                        <span><FontAwesomeIcon role={'button'} icon={show.includes(c.code) ? faAngleUp : faAngleDown} /></span>
+                        <span><FontAwesomeIcon role={'button'} icon={show?.includes(c.code) ? faAngleUp : faAngleDown} /></span>
                      </div>
 
                   </li>

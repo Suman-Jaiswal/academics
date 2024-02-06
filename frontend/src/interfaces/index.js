@@ -25,8 +25,9 @@ class Course {
 }
 
 class Slot {
-    constructor(id, day, start, end, type, venue, group, faculty) {
+    constructor(id, courseCode, day, start, end, type, venue, group, faculty) {
         this.id = id || "";
+        this.courseCode = courseCode || "";
         this.day = day || "";
         this.start = start || "";
         this.end = end || "";
@@ -37,7 +38,7 @@ class Slot {
     }
 
     toDoc() {
-        return { id: this.id, day: this.day, start: this.start, end: this.end, type: this.type, venue: this.venue, group: this.group, faculty: this.faculty };
+        return { id: this.id, courseCode: this.courseCode, day: this.day, start: this.start, end: this.end, type: this.type, venue: this.venue, group: this.group, faculty: this.faculty };
     }
 }
 

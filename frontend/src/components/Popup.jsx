@@ -26,6 +26,7 @@ export default function Popup({ handleClose, show, type, data, errorText, progre
                                                             <div>
                                                                 <input
                                                                     style={styles.input}
+                                                                    defaultValue={item.defaultValue}
                                                                     required={item.required}
                                                                     onChange={(e) => item.setter(e.target.value)}
                                                                     type={item.type}

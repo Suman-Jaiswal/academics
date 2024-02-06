@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { fetchCourses, fetchLinks, fetchSlots } from '../api'
+import { fetchCourses, fetchSlots } from '../api'
 import { MyContext } from '../contexts/MyContext'
 import "../App.css"
 import Schedule from './Schedule'
@@ -10,13 +10,19 @@ import { colors } from './styles'
 export default function Dashboard() {
 
    const { state, dispatch } = useContext(MyContext)
-   const { courses, links, branch } = state
+   const { links, user } = state
 
    useEffect(() => {
-      fetchCourses().then(res => dispatch({ type: "FETCH_COURSES", payload: res }))
-      // fetchSlots(branchId).then(res => dispatch({ type: "FETCH_SLOTS", payload: res }))
-      // fetchLinks(branchId).then(res => dispatch({ type: "FETCH_LINKS", payload: res }))
-   }, [dispatch, branch])
+      fetchCourses().then(res => {
+         dispatch({ type: "SET_COURSES", payload: res })
+      }).catch(e => console.log(e))
+
+      fetchSlots(user?.registeredCourses)
+         .then(res => {
+            console.log(res)
+            dispatch({ type: "SET_SLOTS", payload: res })
+         }).catch(e => console.log(e))
+   }, [dispatch, user.registeredCourses])
 
 
    return (
@@ -48,7 +54,7 @@ export default function Dashboard() {
             </div>
 
             <div className="col-12 col-md-3 p-0">
-               <Courses courses={courses} links={links} />
+               <Courses links={links} />
             </div>
          </div>
 

@@ -66,3 +66,7 @@ hr {
 .small {
    font-size: 12px !important;
 }
+
+.dropdown-toggle::after {
+   display: none !important;
+}

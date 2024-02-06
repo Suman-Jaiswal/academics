@@ -4,15 +4,14 @@ import React, { useContext, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import { addSlot } from '../api';
 import { MyContext } from '../contexts/MyContext';
-import { useParams } from 'react-router-dom';
+import { Slot } from '../interfaces';
 
-export default function AddSlot({ day, time, courses }) {
+export default function AddSlot({ day, time }) {
 
-   const { dispatch } = useContext(MyContext)
-   const { branchId } = useParams()
+   const { state: { user }, dispatch } = useContext(MyContext)
    const [show, setShow] = useState(false);
    const [text, setText] = useState('');
-   const [courseId, setCourseId] = useState('');
+   const [courseCode, setCourseCode] = useState('');
    const [slotType, setType] = useState('L');
 
    const handleClose = () => setShow(false);
@@ -21,14 +20,15 @@ export default function AddSlot({ day, time, courses }) {
    const handleSubmit = (e) => {
       setText('Saving...')
       e.preventDefault()
-      if (courseId === '') {
+      if (courseCode === '') {
          setText('Please select course!')
          return
       }
 
-      const doc = {
-         courseId, branchId, day, startTime: time, slotType
-      }
+      const doc = new Slot(null, courseCode, day, time, null, slotType, null, null, null).toDoc()
+
+      console.log(doc);
+
       addSlot(doc)
          .then(res => {
             setShow(false)
@@ -60,10 +60,12 @@ export default function AddSlot({ day, time, courses }) {
                </Form.Select>
                <br />
                <Form.Label>Select Course</Form.Label>
-               <Form.Select style={{ fontSize: 14 }} onChange={(e) => setCourseId(e.target.value)} aria-label="Default select example">
+               <Form.Select style={{ fontSize: 14 }} onChange={(e) => setCourseCode(e.target.value)} aria-label="Default select example">
                   <option value={''}>...</option>
                   {
-                     courses.length > 0 ? courses.map((c, i) => c.code !== "" ? <option key={i} value={c.id}>{c.code}</option> : null) : null
+                     user.registeredCourses.length > 0 ?
+                        user.registeredCourses.map((code, i) => code !== "" ?
+                           <option key={i} value={code}>{code}</option> : null) : null
                   }
                </Form.Select>
             </Modal.Body>

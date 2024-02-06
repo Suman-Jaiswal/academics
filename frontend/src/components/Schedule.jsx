@@ -5,8 +5,7 @@ import { MyContext } from '../contexts/MyContext'
 
 export default function Schedule() {
 
-   const { state } = useContext(MyContext)
-   const { slots } = state
+   const { state: { slots } } = useContext(MyContext)
 
    return (
       <div className='schedule-wrapper'
@@ -33,7 +32,7 @@ export default function Schedule() {
                         {
                            days.map((day, i) =>
                               <div key={i} ><Block
-                                 slot={slots.filter(s => s.startTime.toString() === time && s.day === day)}
+                                 slot={slots.filter(s => s.start.toString() === time && s.day === day)}
                                  day={day}
                                  time={time}
                               /> </div>
