@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer } from 'react';
 
 const myReducer = (state, action) => {
     switch (action.type) {
@@ -6,21 +6,20 @@ const myReducer = (state, action) => {
         case 'LOGIN':
             return {
                 ...state,
-                user: action.payload
-            }
+                user: action.payload,
+            };
         case 'LOGOUT':
             return {
                 ...state,
-                user: null
-            }
+                user: null,
+            };
 
         //branch
         case 'SET_BRANCH':
             return {
                 ...state,
-                branch: action.payload
-            }
-
+                branch: action.payload,
+            };
 
         //courses
         case 'SET_COURSES':
@@ -29,34 +28,36 @@ const myReducer = (state, action) => {
                 courses: [...action.payload],
                 loading: false,
                 error: false,
-            }
+            };
         case 'ADD_COURSE':
             return {
                 ...state,
                 courses: [...state.courses, action.payload],
                 loading: false,
                 error: false,
-            }
+            };
         case 'EDIT_COURSE':
-            const ind = state.courses.findIndex(o => o.id === action.payload.id)
+            const ind = state.courses.findIndex((o) => o.id === action.payload.id);
 
-            state.courses[ind] = { ...state.courses[ind], ...action.payload.data }
+            state.courses[ind] = {
+                ...state.courses[ind],
+                ...action.payload.data,
+            };
 
             return {
                 ...state,
                 // courses: newArr,
                 // loading: false,
                 // error: false,
-            }
+            };
         case 'DELETE_COURSE':
-            const arr = state.courses.filter(x => x.id !== action.payload)
+            const arr = state.courses.filter((x) => x.id !== action.payload);
             return {
                 ...state,
                 courses: arr,
                 loading: false,
                 error: false,
-            }
-
+            };
 
         //slots
         case 'SET_SLOTS':
@@ -65,33 +66,33 @@ const myReducer = (state, action) => {
                 slots: [...action.payload],
                 loading: false,
                 error: false,
-            }
+            };
         case 'ADD_SLOT':
             return {
                 ...state,
                 slots: [...state.slots, action.payload],
                 loading: false,
                 error: false,
-            }
+            };
         case 'DELETE_SLOT':
-            const arr2 = state.slots.filter(x => x.id !== action.payload)
+            const arr2 = state.slots.filter((x) => x.id !== action.payload);
             return {
                 ...state,
                 slots: arr2,
                 loading: false,
                 error: false,
-            }
+            };
         case 'DELETE_SLOTS_BY_COURSEID':
-            const arr3 = state.slots.filter(x => x.courseId !== action.payload)
+            const arr3 = state.slots.filter((x) => x.courseId !== action.payload);
             return {
                 ...state,
                 slots: arr3,
                 loading: false,
                 error: false,
-            }
+            };
 
         default:
-            return state
+            return state;
 
         // links
         case 'FETCH_LINKS':
@@ -100,7 +101,7 @@ const myReducer = (state, action) => {
                 links: [...action.payload],
                 loading: false,
                 error: false,
-            }
+            };
 
         case 'ADD_LINKS':
             return {
@@ -108,47 +109,51 @@ const myReducer = (state, action) => {
                 links: [...state.links, ...action.payload],
                 loading: false,
                 error: false,
-            }
+            };
 
         case 'REMOVE_LINK':
             return {
                 ...state,
-                links: state.links.filter(l => l.id !== action.payload),
+                links: state.links.filter((l) => l.id !== action.payload),
                 loading: false,
                 error: false,
-            }
+            };
     }
-}
+};
 
-export const MyContext = createContext()
+export const MyContext = createContext();
 
 const initialState = {
     user: null,
     branch: {
-        branchId: "",
-        name: "",
-        program: ""
+        branchId: '',
+        name: '',
+        program: '',
     },
     courses: [],
     slots: [],
     links: [],
-}
+};
 
 function MyContextProvider(props) {
-
     const [state, dispatch] = useReducer(myReducer, initialState);
 
     useEffect(() => {
         // console.log('user', state.user)
-        console.log('courses', state.courses)
+        console.log('courses', state.courses);
         // console.log('slots', state.slots)
         // console.log('links', state.links)
-    }, [state])
+    }, [state]);
 
     return (
-        <MyContext.Provider value={{ state, dispatch }}>
+        <MyContext.Provider
+            value={{
+                state,
+                dispatch,
+            }}
+        >
             {props.children}
         </MyContext.Provider>
-    )
+    );
 }
-export default MyContextProvider
+export default MyContextProvider;

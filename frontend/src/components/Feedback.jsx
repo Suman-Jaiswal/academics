@@ -21,17 +21,35 @@ const Feedback = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setText('Sending...');
-        sendFeedback({ email, content }).then((res) => {
-            setText('');
-            setIsModalOpen(false);
-        }
-        ).catch(e => { setText('An error occured!') })
-    }
+        sendFeedback({
+            email,
+            content,
+        })
+            .then((res) => {
+                setText('');
+                setIsModalOpen(false);
+            })
+            .catch((e) => {
+                setText('An error occured!');
+            });
+    };
 
     return (
         <div>
-            <button className='btn btn-dark text-secondary' onClick={handleOpenModal} style={{ fontSize: 10, borderTopRightRadius: 0, textDecoration: 'underline' }}>
-                <FontAwesomeIcon className='me-1' icon={faEnvelope} /> Give Feedback
+            <button
+                className='btn btn-dark text-secondary'
+                onClick={handleOpenModal}
+                style={{
+                    fontSize: 10,
+                    borderTopRightRadius: 0,
+                    textDecoration: 'underline',
+                }}
+            >
+                <FontAwesomeIcon
+                    className='me-1'
+                    icon={faEnvelope}
+                />{' '}
+                Give Feedback
             </button>
             <Popup
                 handleClose={handleCloseModal}
@@ -58,7 +76,8 @@ const Feedback = () => {
                 errorText={text === 'An error occured!' ? text : ''}
                 progressText={text === 'Sending...' ? text : ''}
                 buttonText='Send'
-                handleSubmit={handleSubmit}></Popup>
+                handleSubmit={handleSubmit}
+            ></Popup>
         </div>
     );
 };

@@ -1,72 +1,72 @@
 body {
-   background-color: rgb(0, 0, 0) !important;
-   color: white !important;
+    background-color: rgb(0, 0, 0) !important;
+    color: white !important;
 }
 
 .dashboard {
-   background-color: rgb(0, 0, 0) !important;
-   color: white !important;
+    background-color: rgb(0, 0, 0) !important;
+    color: white !important;
 }
 
 .links-li a {
-   text-decoration: none !important;
+    text-decoration: none !important;
 }
 
 .links-li:hover {
-   text-decoration: underline;
+    text-decoration: underline;
 }
 
 ::-webkit-scrollbar {
-   height: 0px;
-   width: 0px;
+    height: 0px;
+    width: 0px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-   background: #ffffff;
+    background: #ffffff;
 }
 
 ::-webkit-scrollbar-thumb {
-   background: #2303033d;
+    background: #2303033d;
 }
 
 .modal-body,
 .modal-header,
 .modal-footer {
-   background-color: #202020;
+    background-color: #202020;
 }
 
 .form-control,
 .form-select {
-   background-color: #000 !important;
-   color: #ffffff !important;
+    background-color: #000 !important;
+    color: #ffffff !important;
 }
 
 .btn-close {
-   filter: invert(1);
+    filter: invert(1);
 }
 
 .modal-content {
-   background-color: #202020 !important;
+    background-color: #202020 !important;
 }
 
 .home {
-   background: url("../public/bg.jpg") no-repeat center center;
-   background-size: cover;
-   height: 90vh;
-   width: 100%;
-   background-color: #000000a4;
-   background-blend-mode: soft-light;
+    background: url('../public/bg.jpg') no-repeat center center;
+    background-size: cover;
+    height: 90vh;
+    width: 100%;
+    background-color: #000000a4;
+    background-blend-mode: soft-light;
 }
 
 hr {
-   background-color: #8b8b8b !important;
+    background-color: #8b8b8b !important;
 }
 
 .small {
-   font-size: 12px !important;
+    font-size: 12px !important;
 }
 
 .dropdown-toggle::after {
-   display: none !important;
+    display: none !important;
 }
